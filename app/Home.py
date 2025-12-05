@@ -23,15 +23,16 @@ def load_data():
     data_path = base_path / "data" / "app_ready"
 
     df = pd.read_csv(data_path / "homes_pop_it.csv")
-
     df["COD_REG"] = df["region_code"].astype(int)
+
+    df_disp = pd.read_csv(data_path / "dispertion_places.csv")
 
     with open(data_path / "italy_regions.geojson", "r", encoding="utf-8") as f:
         geojson = json.load(f)
 
-    return df, geojson
+    return df, geojson, df_disp
 
-df_regions, regions_geojson = load_data()
+df_regions, regions_geojson, df_disp = load_data()
 
 
 # ---------- PAGE CONFIG ----------
@@ -216,6 +217,7 @@ with tab_summary:
     st.subheader("Research Summary")
     st.write("we found some results.....")
 
+
 # ---------- SCENARIO ----------
 st.markdown("<div id='scenario-section'></div>", unsafe_allow_html=True)
 st.header("Scenario")
@@ -239,57 +241,220 @@ st.write("---")
 st.markdown("<div id='datasets-section'></div>", unsafe_allow_html=True)
 st.header("Datasets")
 
-st.subheader("Dataset Overview")
 
-col_orig, col_out = st.columns(2)
+card_css = """
+<style>
+.dataset-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+    height: 100%;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
 
-with col_orig:
-    st.markdown("### Original Dataset")
-    st.write(
-        """
-        - **Source:** …
-        - **Records:** N = …
-        - **Format:** CSV / JSON / RDF / …
-        - **Size:** … MB
-        """
-    )
-    st.download_button(
-        label="Download original dataset",
-        data="PLACEHOLDER_ORIGINAL_DATA",
-        file_name="original_dataset_placeholder.txt",
-        mime="text/plain",
-        key="download_original",
+.dataset-card:hover {
+    background-color: #fff7f0; /* чуть более яркий фон */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.dataset-card-title {
+    font-weight: 700;
+    margin-bottom: 0.1rem;
+}
+
+.dataset-card-subtitle {
+    font-size: 0.9rem;
+    color: #555555;
+    margin-bottom: 0.35rem;
+}
+
+.dataset-card-divider {
+    border-top: 1px solid #e0e0e0;
+    margin: 0.35rem 0 0.6rem 0;
+}
+
+.dataset-card-uri {
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+</style>
+"""
+st.markdown(card_css, unsafe_allow_html=True)
+
+def render_dataset_card(ds: dict):
+    # license: либо текст, либо ссылка, если есть license_url
+    license_url = ds.get("license_url")
+    if license_url:
+        license_html = f'<a href="{license_url}" target="_blank">{ds["license"]}</a>'
+    else:
+        license_html = ds["license"]
+
+    # URI: делаем кликабельным (если это URL или путь в репозитории)
+    uri_html = f'<a href="{ds["uri"]}" target="_blank">{ds["uri"]}</a>'
+
+    st.markdown(
+        f"""
+        <div class="dataset-card">
+          <div class="dataset-card-title">{ds['title']}</div>
+          <div class="dataset-card-subtitle">ID: {ds['id']}</div>
+          <div class="dataset-card-divider"></div>
+          <p>
+            <strong>Provenance:</strong> {ds['provenance']}<br>
+            <strong>Format:</strong> {ds['format']}<br>
+            <strong>Metadata:</strong> {ds['metadata']}<br>
+            <strong>URI:</strong> <span class="dataset-card-uri">{uri_html}</span><br>
+            <strong>License:</strong> {license_html}
+          </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
-with col_out:
-    st.markdown("### Output Dataset (Cleaned / Enriched)")
-    st.write(
-        """
-        - **Records:** N = …
-        - **Format:** CSV / RDF / …
-        - **Transformations:** cleaning, harmonisation, enrichment…
-        - **Size:** … MB
-        """
-    )
-    st.download_button(
-        label="Download output dataset",
-        data="PLACEHOLDER_OUTPUT_DATA",
-        file_name="output_dataset_placeholder.txt",
-        mime="text/plain",
-        key="download_output",
-    )
 
-with st.expander("Show schema / full data dictionary"):
-    st.write(
-        """
-        Data dictionary / schema description goes here.
-        - Field 1: description, example
-        - Field 2: description, example
-        - …
-        """
-    )
 
-st.write("---")
+
+source_datasets = [
+    {
+        "id": "D1_population_regions",
+        "title": "D1 – Italy Population 2025",
+        "provenance": "Istat",
+        "format": "CSV",
+        "metadata": "Provided",
+        "uri": "https://www.istat.it/",
+        "license": "CC BY 3.0",
+    },
+    {
+        "id": "D2_housing_it",
+        "title": "D2 – Italy Housing Data 2021",
+        "provenance": "Istat",
+        "format": "CSV, XLXS",
+        "metadata": "Provided",
+        "uri": "https://www.istat.it/",
+        "license": "CC BY 3.0",
+    },
+    {
+        "id": "GD1_regions_it",
+        "title": "GD1 – Italy Regions Boundaries",
+        "provenance": "Istat",
+        "format": "SHP",
+        "metadata": "Provided",
+        "uri": "https://www.istat.it/",
+        "license": "CC BY 3.0",
+    },
+    {
+        "id": "GD2_places_center",
+        "title": "GD2 – Settlements Location Center",
+        "provenance": "Geofabric",
+        "format": "SHP",
+        "metadata": "Provided",
+        "uri": "https://download.geofabrik.de/europe/italy.html",
+        "license": "ODbL 1.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+    },
+    {
+        "id": "GD3_places_islands",
+        "title": "GD3 – Settlements Location Islands",
+        "provenance": "Geofabric",
+        "format": "SHP",
+        "metadata": "Provided",
+        "uri": "https://download.geofabrik.de/europe/italy.html",
+        "license": "ODbL 1.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+    },
+    {
+        "id": "GD4_ places_north_east",
+        "title": "GD4 – Settlements Location North-East",
+        "provenance": "Geofabric",
+        "format": "SHP",
+        "metadata": "Provided",
+        "uri": "https://download.geofabrik.de/europe/italy.html",
+        "license": "ODbL 1.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+    },
+    {
+        "id": "GD5_ places_north_west",
+        "title": "GD5 – Settlements Location North-West",
+        "provenance": "Geofabric",
+        "format": "SHP",
+        "metadata": "Provided",
+        "uri": "https://download.geofabrik.de/europe/italy.html",
+        "license": "ODbL 1.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+    },
+    {
+        "id": "GD6_ places_south",
+        "title": "GD6 – Settlements Location South",
+        "provenance": "Geofabric",
+        "format": "SHP",
+        "metadata": "Provided",
+        "uri": "https://download.geofabrik.de/europe/italy.html",
+        "license": "ODbL 1.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+    },
+
+]
+
+mashup_datasets = [
+    {
+        "id": "M1",
+        "title": "Regional indicators (ageing, vacancy, macro-region)",
+        "provenance": "Project mashup from D1 + cleaned geographies",
+        "format": "XLSX",
+        "metadata": "Provided (sheet-level notes, variable list)",
+        "uri": "data/app_ready/regions_summary.xlsx",
+        "license": "CC BY 4.0",
+    },
+    {
+        "id": "M2",
+        "title": "Italy macro-regions (5-part shapefile)",
+        "provenance": "Derived from D2 (aggregated to 5 macro-regions)",
+        "format": "ESRI Shapefile (.shp, .shx, .dbf, .prj, .cpg)",
+        "metadata": "Provided (macro-region labels, mapping table)",
+        "uri": "data/app_ready/italy_macroregions_*",
+        "license": "CC BY 4.0",
+    },
+]
+
+tab_source, tab_mashup = st.tabs(["Source datasets", "Mashup datasets"])
+
+cols_per_row = 3  
+
+with tab_source:
+    n = len(source_datasets)
+    for i in range(0, n, cols_per_row):
+        row_items = source_datasets[i : i + cols_per_row]
+        cols = st.columns(cols_per_row)
+
+        # если в последней строке 2 карточки — ставим их в первые две колонки (аккуратно и симметрично)
+        # можно сделать 1 и 2 колонку, если хочешь, чтобы они были ближе к центру:
+        if len(row_items) == 2 and i + cols_per_row >= n:
+            start_idx = 0  # или 1, если хочешь сместить к центру
+        else:
+            start_idx = 0
+
+        for ds, col in zip(row_items, cols[start_idx : start_idx + len(row_items)]):
+            with col:
+                render_dataset_card(ds)
+
+with tab_mashup:
+    n = len(mashup_datasets)
+    for i in range(0, n, cols_per_row):
+        row_items = mashup_datasets[i : i + cols_per_row]
+        cols = st.columns(cols_per_row)
+
+        if len(row_items) == 2 and i + cols_per_row >= n:
+            start_idx = 0  # или 1, по вкусу
+        else:
+            start_idx = 0
+
+        for ds, col in zip(row_items, cols[start_idx : start_idx + len(row_items)]):
+            with col:
+                render_dataset_card(ds)
+
 
 
 # ---------- KEY FINDINGS ----------
@@ -420,9 +585,15 @@ st.write("---")
 st.markdown("<div id='preprocessing-section'></div>", unsafe_allow_html=True)
 st.header("Preprocessing of Data and Visualisations")
 
-tab_ranked, tab_scatter, tab_overview = st.tabs(
-    ["Ranked bars: Ageing vs vacancy", "Scatter: Retired people vs retired places", "Data Preprocessing"]
+tab_ranked, tab_scatter, tab_disp, tab_overview = st.tabs(
+    [
+        "Ranked bars: Ageing vs vacancy",
+        "Scatter: Retired people vs retired places",
+        "Map: Dispersed settlements",
+        "Data Preprocessing",
+    ]
 )
+
 
 # ========= TAB 1: RANKED BARS =========
 with tab_ranked:
@@ -840,8 +1011,123 @@ with col1:
         st.plotly_chart(fig_dumb, use_container_width=True)
 
 
+# ---------- TAB 3: DISPERSED SETTLEMENTS MAP ----------
+with tab_disp:
+    st.subheader("Map. Dispersed Settlements Index")
 
-# ========= TAB 3: OVERVIEW =========
+    st.write(
+        """
+        This map shows how “dispersed” the settlement pattern is in each region:
+        the number of villages/hamlets per 1,000 inhabitants.
+        Higher values mean more small settlements for a relatively small population,
+        which implies fragmented living patterns and more expensive infrastructure.
+        """
+    )
+
+    vmin = 0.0
+    vmax = float(df_disp["dispersed_index"].quantile(0.95))
+
+    fig_disp = px.choropleth(
+        df_disp,
+        geojson=regions_geojson,
+        locations="region_code",
+        featureidkey="properties.COD_REG",
+        color="dispersed_index",
+        range_color=(vmin, vmax),
+        hover_name="region",
+        hover_data={
+            "region_code": False,
+            "tot_pop": ":,.0f",
+            "settlements_count": ":,.0f",
+            "dispersed_index": ":.2f",
+            "share_65plus": False,
+            "share_unoccupied": False,
+            "macro_region": False,
+        },
+        labels={
+            "dispersed_index": "Dispersed Settlements Index\n(villages / 1,000 inhabitants)",
+        },
+    )
+
+    fig_disp.update_geos(fitbounds="locations", visible=False)
+
+    fig_disp.update_layout(
+        margin={"r": 20, "t": 20, "l": 20, "b": 20},
+        coloraxis_colorbar=dict(
+            title="Villages / 1,000 inhabitants",
+        ),
+        height=550,
+    )
+
+    st.plotly_chart(fig_disp, use_container_width=True)
+
+    with st.expander("How to read the colour scale", expanded=False):
+        st.info(
+        "The colour scale is capped at the 95th percentile of the index so that one "
+        "extreme region (Dispersed Settlements Index ≈ 23) does not flatten differences "
+        "between regions with values around 1–2. Regions above the cap are shown in the top colour."
+        )
+
+    # ---------- SCATTER: DISPERSED INDEX vs 65+ ----------
+    st.markdown("---")
+    st.subheader("Scatter. Dispersed Settlements Index vs share of 65+")
+
+    st.write(
+        """
+        Each point is a region. The x-axis shows how dispersed the settlement pattern is
+        (villages/hamlets per 1,000 inhabitants), the y-axis shows the share of people aged 65+,
+        and the colour encodes the share of unoccupied homes.
+        This helps to spot regions where ageing and vacancy concentrate in highly fragmented landscapes.
+        """
+    )
+
+    macro_options = ["All Italy"] + sorted(df_regions["macro_region"].dropna().unique())
+    selected_macro_disp_scatter = st.selectbox(
+        "Filter by macro-region (scatter)",
+        options=macro_options,
+        index=0,
+        key="macro_disp_scatter",
+    )
+
+    if selected_macro_disp_scatter == "All Italy":
+        df_disp_scatter = df_disp.copy()
+    else:
+        df_disp_scatter = df_disp[
+            df_disp["macro_region"] == selected_macro_disp_scatter
+        ].copy()
+
+    fig_disp_scatter = px.scatter(
+        df_disp_scatter,
+        x="dispersed_index",
+        y="share_65plus",
+        color="share_unoccupied",
+        hover_name="region",
+        hover_data={
+            "dispersed_index": ":.2f",
+            "share_65plus": ":.2f",
+            "share_unoccupied": ":.2f",
+            "macro_region": False,
+        },
+        labels={
+            "dispersed_index": "Dispersed Settlements Index\n(villages / 1,000 inhabitants)",
+            "share_65plus": "Share of 65+ (%)",
+            "share_unoccupied": "Share of unoccupied homes (%)",
+        },
+        color_continuous_scale="Viridis",  
+    )
+
+    fig_disp_scatter.update_layout(
+        margin={"r": 30, "t": 30, "l": 60, "b": 60},
+        height=550,
+        coloraxis_colorbar=dict(
+            title="Share of\nunoccupied homes (%)",
+        ),
+    )
+
+    st.plotly_chart(fig_disp_scatter, use_container_width=True)    
+
+
+# ========= TAB 4: OVERVIEW =========
 with tab_overview:
     st.write(
         """
