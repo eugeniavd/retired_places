@@ -318,7 +318,6 @@ def render_dataset_card(ds: dict):
     )
 
 
-
 source_datasets = [
     {
         "id": "D1_population_regions",
@@ -327,18 +326,20 @@ source_datasets = [
         "format": "CSV",
         "metadata": "Provided",
         "uri": "https://demo.istat.it/app/?i=POS&l=it",
-        "uri_label": "Istat",
-        "license": "CC BY 3.0",
+        "uri_label": "Popolazione residente",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
     },
     {
         "id": "D2_housing_it",
         "title": "D2 – Italy Housing Data 2021",
-        "provenance": "Istat",
+        "provenance": "IstatData",
         "format": "CSV, XLXS",
         "metadata": "Provided",
         "uri": "https://esploradati.istat.it/databrowser/#/it/censpop/categories/DCSS_ABITAZIONI_TV/IT1,DF_DCSS_ABITAZIONI_TV_1,1.0",
-        "uri_label": "Istat",
-        "license": "CC BY 3.0",
+        "uri_label": "Censimento permanente della popolazione e delle abitazioni",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
     },
     {
         "id": "GD1_regions_it",
@@ -347,8 +348,9 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://www.istat.it/notizia/confini-delle-unita-amministrative-a-fini-statistici-al-1-gennaio-2018-2/",
-        "uri_label": "Istat",
-        "license": "CC BY 3.0",
+        "uri_label": "Confini delle unità amministrative a fini statistici",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
     },
     {
         "id": "GD2_places_center",
