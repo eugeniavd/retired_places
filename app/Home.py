@@ -22,10 +22,10 @@ def load_data():
     base_path = Path(__file__).resolve().parent.parent
     data_path = base_path / "data" / "app_ready"
 
-    df = pd.read_csv(data_path / "homes_pop_it.csv")
+    df = pd.read_csv(data_path / "MD5_age_houses_occupation.csv")
     df["COD_REG"] = df["region_code"].astype(int)
 
-    df_disp = pd.read_csv(data_path / "dispertion_places.csv")
+    df_disp = pd.read_csv(data_path / "MD4_dispertion_places.csv")
 
     with open(data_path / "italy_regions.geojson", "r", encoding="utf-8") as f:
         geojson = json.load(f)
