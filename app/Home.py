@@ -286,15 +286,18 @@ card_css = """
 st.markdown(card_css, unsafe_allow_html=True)
 
 def render_dataset_card(ds: dict):
-    # license: либо текст, либо ссылка, если есть license_url
+   
+    provenance_or_compiler = ds.get("provenance") or ds.get("compiler") or "—"
+
+    
     license_url = ds.get("license_url")
     if license_url:
         license_html = f'<a href="{license_url}" target="_blank">{ds["license"]}</a>'
     else:
         license_html = ds["license"]
 
-    # URI: делаем кликабельным (если это URL или путь в репозитории)
-    uri_html = f'<a href="{ds["uri"]}" target="_blank">{ds["uri"]}</a>'
+    uri_label = ds.get("uri_label", ds["uri"])
+    uri_html = f'<a href="{ds["uri"]}" target="_blank">{uri_label}</a>'
 
     st.markdown(
         f"""
@@ -303,7 +306,7 @@ def render_dataset_card(ds: dict):
           <div class="dataset-card-subtitle">ID: {ds['id']}</div>
           <div class="dataset-card-divider"></div>
           <p>
-            <strong>Provenance:</strong> {ds['provenance']}<br>
+            <strong>Provenance / Compiler:</strong> {provenance_or_compiler}<br>
             <strong>Format:</strong> {ds['format']}<br>
             <strong>Metadata:</strong> {ds['metadata']}<br>
             <strong>URI:</strong> <span class="dataset-card-uri">{uri_html}</span><br>
@@ -316,7 +319,6 @@ def render_dataset_card(ds: dict):
 
 
 
-
 source_datasets = [
     {
         "id": "D1_population_regions",
@@ -324,7 +326,8 @@ source_datasets = [
         "provenance": "Istat",
         "format": "CSV",
         "metadata": "Provided",
-        "uri": "https://www.istat.it/",
+        "uri": "https://demo.istat.it/app/?i=POS&l=it",
+        "uri_label": "Istat",
         "license": "CC BY 3.0",
     },
     {
@@ -333,7 +336,8 @@ source_datasets = [
         "provenance": "Istat",
         "format": "CSV, XLXS",
         "metadata": "Provided",
-        "uri": "https://www.istat.it/",
+        "uri": "https://esploradati.istat.it/databrowser/#/it/censpop/categories/DCSS_ABITAZIONI_TV/IT1,DF_DCSS_ABITAZIONI_TV_1,1.0",
+        "uri_label": "Istat",
         "license": "CC BY 3.0",
     },
     {
@@ -342,7 +346,8 @@ source_datasets = [
         "provenance": "Istat",
         "format": "SHP",
         "metadata": "Provided",
-        "uri": "https://www.istat.it/",
+        "uri": "https://www.istat.it/notizia/confini-delle-unita-amministrative-a-fini-statistici-al-1-gennaio-2018-2/",
+        "uri_label": "Istat",
         "license": "CC BY 3.0",
     },
     {
@@ -352,6 +357,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://download.geofabrik.de/europe/italy.html",
+        "uri_label": "Geofabric",
         "license": "ODbL 1.0",
         "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
     },
@@ -362,6 +368,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://download.geofabrik.de/europe/italy.html",
+        "uri_label": "Geofabric",
         "license": "ODbL 1.0",
         "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
     },
@@ -372,6 +379,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://download.geofabrik.de/europe/italy.html",
+        "uri_label": "Geofabric",
         "license": "ODbL 1.0",
         "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
     },
@@ -382,6 +390,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://download.geofabrik.de/europe/italy.html",
+        "uri_label": "Geofabric",
         "license": "ODbL 1.0",
         "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
     },
@@ -392,6 +401,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://download.geofabrik.de/europe/italy.html",
+        "uri_label": "Geofabric",
         "license": "ODbL 1.0",
         "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
     },
@@ -400,26 +410,81 @@ source_datasets = [
 
 mashup_datasets = [
     {
-        "id": "M1",
-        "title": "Regional indicators (ageing, vacancy, macro-region)",
-        "provenance": "Project mashup from D1 + cleaned geographies",
-        "format": "XLSX",
-        "metadata": "Provided (sheet-level notes, variable list)",
-        "uri": "data/app_ready/regions_summary.xlsx",
-        "license": "CC BY 4.0",
+        "id": "MD1_share_houses_occupation",
+        "title": "MD1 – Share Houses Occupation",
+        "compiler": "Evgeniia Vdovichenko",
+        "format": "CSV",
+        "metadata": "Provided",
+        "uri": "https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD1_share_houses_occupation.csv",
+        "uri_label": "MD1_share_houses_occupation",
+        "license": "CC BY 3.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/"
     },
     {
-        "id": "M2",
-        "title": "Italy macro-regions (5-part shapefile)",
-        "provenance": "Derived from D2 (aggregated to 5 macro-regions)",
-        "format": "ESRI Shapefile (.shp, .shx, .dbf, .prj, .cpg)",
-        "metadata": "Provided (macro-region labels, mapping table)",
-        "uri": "data/app_ready/italy_macroregions_*",
-        "license": "CC BY 4.0",
+        "id": "MD2_share_65_plus",
+        "title": "MD2 – Share 65 Plus",
+        "compiler": "Evgeniia Vdovichenko",
+        "format": "CSV",
+        "metadata": "Provided",
+        "uri": "https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD2_share_65_plus.csv",
+        "uri_label": "MD2_share_65_plus",
+        "license": "CC BY 3.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/"
+    },
+    {
+        "id": "MD3_settlements_count",
+        "title": "MD3 – Settlements per Region",
+        "compiler": "Evgeniia Vdovichenko",
+        "format": "CSV",
+        "metadata": "Provided",
+        "uri": "https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD3_settlements_count.csv",
+        "uri_label": "MD3_settlements_count",
+        "license": "ODbL 1.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/"
+    },
+    {
+        "id": "MD4_dispertion_places",
+        "title": "MD4 - Dispersed Settlements Index",
+        "compiler": "Evgeniia Vdovichenko",
+        "format": "CSV",
+        "metadata": "Provided",
+        "uri": "https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD4_dispertion_places.csv",
+        "uri_label": "MD4_dispertion_places",
+        "license": "ODbL 1.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/"
+    },
+    {
+        "id": "MD5_age_houses_occupation",
+        "title": "MD5 – Age vs Houses Occupation",
+        "compiler": "Evgeniia Vdovichenko",
+        "format": "CSV",
+        "metadata": "Provided",
+        "uri": "https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD5_age_houses_occupation.csv",
+        "uri_label": "MD5_age_houses_occupation",
+        "license": "CC BY 3.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/"
     },
 ]
 
-tab_source, tab_mashup = st.tabs(["Source datasets", "Mashup datasets"])
+merged_datasets = [
+    {
+        "id": "MED1_settlements_italy",
+        "title": "MED1 – Settlements Italy",
+        "compiler": "Evgeniia Vdovichenko",
+        "format": "GPKG",
+        "metadata": "Provided",
+        "uri": "https://github.com/eugeniavd/retired_places/blob/main/data/processed/MED1_settlements_italy.gpkg ",
+        "uri_label": "MED1_settlements_italy",
+        "license": "ODbL 1.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/"
+    },
+   
+]
+
+
+tab_source, tab_mashup, tab_merged = st.tabs(
+    ["Source datasets", "Mashup datasets", "Merged datasets"]
+)
 
 cols_per_row = 3  
 
@@ -429,10 +494,8 @@ with tab_source:
         row_items = source_datasets[i : i + cols_per_row]
         cols = st.columns(cols_per_row)
 
-        # если в последней строке 2 карточки — ставим их в первые две колонки (аккуратно и симметрично)
-        # можно сделать 1 и 2 колонку, если хочешь, чтобы они были ближе к центру:
         if len(row_items) == 2 and i + cols_per_row >= n:
-            start_idx = 0  # или 1, если хочешь сместить к центру
+            start_idx = 0 
         else:
             start_idx = 0
 
@@ -455,6 +518,20 @@ with tab_mashup:
             with col:
                 render_dataset_card(ds)
 
+with tab_merged:
+    n = len(merged_datasets)
+    for i in range(0, n, cols_per_row):
+        row_items = merged_datasets[i : i + cols_per_row]
+        cols = st.columns(cols_per_row)
+
+        if len(row_items) == 2 and i + cols_per_row >= n:
+            start_idx = 0  
+        else:
+            start_idx = 0
+
+        for ds, col in zip(row_items, cols[start_idx : start_idx + len(row_items)]):
+            with col:
+                render_dataset_card(ds)
 
 
 # ---------- KEY FINDINGS ----------
