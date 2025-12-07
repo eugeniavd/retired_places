@@ -337,7 +337,7 @@ source_datasets = [
         "format": "CSV, XLXS",
         "metadata": "Provided",
         "uri": "https://esploradati.istat.it/databrowser/#/it/censpop/categories/DCSS_ABITAZIONI_TV/IT1,DF_DCSS_ABITAZIONI_TV_1,1.0",
-        "uri_label": "Censimento permanente della popolazione e delle abitazioni",
+        "uri_label": "Censimento delle abitazioni",
         "license": "CC BY 4.0",
         "license_url": "https://creativecommons.org/licenses/by/4.0/",
     },
@@ -348,7 +348,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://www.istat.it/notizia/confini-delle-unita-amministrative-a-fini-statistici-al-1-gennaio-2018-2/",
-        "uri_label": "Confini delle unità amministrative a fini statistici",
+        "uri_label": "Confini amministrativi",
         "license": "CC BY 4.0",
         "license_url": "https://creativecommons.org/licenses/by/4.0/",
     },
@@ -359,7 +359,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://download.geofabrik.de/europe/italy.html",
-        "uri_label": "Geofabric",
+        "uri_label": "OpenStreetMap data Italy",
         "license": "ODbL 1.0",
         "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
     },
@@ -370,7 +370,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://download.geofabrik.de/europe/italy.html",
-        "uri_label": "Geofabric",
+        "uri_label": "OpenStreetMap data Italy",
         "license": "ODbL 1.0",
         "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
     },
@@ -381,7 +381,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://download.geofabrik.de/europe/italy.html",
-        "uri_label": "Geofabric",
+        "uri_label": "OpenStreetMap data Italy",
         "license": "ODbL 1.0",
         "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
     },
@@ -392,7 +392,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://download.geofabrik.de/europe/italy.html",
-        "uri_label": "Geofabric",
+        "uri_label": "OpenStreetMap data Italy",
         "license": "ODbL 1.0",
         "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
     },
@@ -403,7 +403,7 @@ source_datasets = [
         "format": "SHP",
         "metadata": "Provided",
         "uri": "https://download.geofabrik.de/europe/italy.html",
-        "uri_label": "Geofabric",
+        "uri_label": "OpenStreetMap data Italy",
         "license": "ODbL 1.0",
         "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
     },
@@ -419,8 +419,8 @@ mashup_datasets = [
         "metadata": "Provided",
         "uri": "https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD1_share_houses_occupation.csv",
         "uri_label": "MD1_share_houses_occupation",
-        "license": "CC BY 3.0",
-        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/"
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
     },
     {
         "id": "MD2_share_65_plus",
@@ -430,8 +430,8 @@ mashup_datasets = [
         "metadata": "Provided",
         "uri": "https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD2_share_65_plus.csv",
         "uri_label": "MD2_share_65_plus",
-        "license": "CC BY 3.0",
-        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/"
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
     },
     {
         "id": "MD3_settlements_count",
@@ -463,8 +463,8 @@ mashup_datasets = [
         "metadata": "Provided",
         "uri": "https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD5_age_houses_occupation.csv",
         "uri_label": "MD5_age_houses_occupation",
-        "license": "CC BY 3.0",
-        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/"
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
     },
 ]
 
@@ -477,8 +477,8 @@ merged_datasets = [
         "metadata": "Provided",
         "uri": "https://github.com/eugeniavd/retired_places/blob/main/data/processed/MED1_settlements_italy.gpkg ",
         "uri_label": "MED1_settlements_italy",
-        "license": "ODbL 1.0",
-        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/"
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
     },
    
 ]
