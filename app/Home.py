@@ -64,10 +64,71 @@ with st.sidebar:
     for label, anchor in NAV_ITEMS:
         st.markdown(f"- [{label}]({anchor})")
 
+
 # ---------- SESSION STATE ----------
 if "show_all_charts" not in st.session_state:
     st.session_state["show_all_charts"] = False
 
+
+# ---------- PAGE CSS ----------
+button_css = """
+<style>
+.rdf-button,
+.rdf-button:link,
+.rdf-button:visited,
+.rdf-button:hover,
+.rdf-button:active {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border-radius: 4px;            
+    background-color: #f97316;      
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.15s ease,
+                box-shadow 0.15s ease;
+}
+
+.rdf-button:hover {
+    background-color: #ea580c;    
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transform: translateY(-1px);
+}
+</style>
+"""
+st.markdown(button_css, unsafe_allow_html=True)
+
+# ontology tiles
+ontology_css = """
+<style>
+#ontology-tiles div[data-testid="stExpander"] {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    margin-bottom: 0.8rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease,
+                transform 0.15s ease, background-color 0.15s ease;
+}
+
+#ontology-tiles div[data-testid="stExpander"]:hover {
+    border-color: #f97316;
+    background-color: #fff7ed;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.10);
+    transform: translateY(-2px);
+}
+
+#ontology-tiles div[data-testid="stExpander"] summary {
+    padding: 0.55rem 0.9rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+</style>
+"""
+st.markdown(ontology_css, unsafe_allow_html=True)
 
 # ---------- HERO BLOCK ----------
 with st.container():
@@ -1224,17 +1285,390 @@ with tab_overview:
 st.markdown("<div id='rdf-section'></div>", unsafe_allow_html=True)
 st.header("RDF Assertion of the Metadata")
 
-st.write(
-    """
-    Describe how the metadata is exposed as RDF:
+st.markdown(
+        """
+        *This section documents how dataset-level metadata is expressed as RDF and
+how the serializations are published alongside the tabular data.*
+        """
+    )
 
-    - Vocabularies used (DCAT-AP, DCTERMS, PROV, etc.)
-    - URI strategy for datasets, distributions, organisations
-    - How the RDF is published (files, SPARQL endpoint, API, etc.)
+@st.cache_data
+def load_ttl_preview(relative_path: str, max_lines: int = 18) -> str:
     """
+    Load a short preview of an RDF/Turtle file from the project tree.
+    """
+    base_path = Path(__file__).resolve().parent.parent 
+    full_path = base_path / relative_path
+
+    try:
+        with open(full_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        snippet = "".join(lines[:max_lines])
+        if len(lines) > max_lines:
+            snippet += "\n# … (truncated for preview) …"
+        return snippet
+    except FileNotFoundError:
+        return f"# Preview not available.\n# File not found: {full_path}"
+    
+tab_assert, tab_enrich, tab_interop = st.tabs(
+    [
+        "RDF Assertion and Serialization",
+        "Semantic Enrichment of the Datasets",
+        "RDF as a Model for Data Interoperability",
+    ]
 )
 
-st.write("---")
+
+# ===== TAB 1: RDF ASSERTION + PREVIEWS =====
+with tab_assert:
+    st.subheader("RDF Assertion and Serialization")
+
+    st.markdown(
+    """
+All source and project-generated datasets used in the *Retired Places* project — including the original ISTAT tables, the geospatial layers from OpenStreetMap, and the derived mashup and merged datasets — are described in RDF using the **[W3C Data Catalog Vocabulary (DCAT), Version 3 (2024)](https://www.w3.org/TR/vocab-dcat-3/)**.
+
+The catalog metadata itself is published under **[CC0](https://creativecommons.org/public-domain/cc0/)**, while each dataset keeps the license inherited from its original source or, in the case of mashups, from the most restrictive input dataset used in its creation.
+"""
+)
+
+
+    st.markdown("#### We created two RDF serializations:")
+
+    ttl_catalog_rel = Path("rdf", "rdf_serialization") / "serialization_catalog.ttl"
+    ttl_dataset_rel = Path("rdf", "rdf_serialization") / "serialization_datasets.ttl"
+    
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        st.markdown("**Catalog-level metadata** describes the overall data catalog and lists all dataset entries.")
+        st.code(
+            load_ttl_preview(str(ttl_catalog_rel)),
+            language="turtle",
+        )
+        
+    with col_right:
+        st.markdown("**Dataset-level metadata** contains detailed metadata for each individual dataset.")
+        st.code(
+            load_ttl_preview(str(ttl_dataset_rel)),
+            language="turtle",
+        )
+
+    st.caption(
+    "You can inspect and download the complete RDF files in the project repository:"
+)
+    
+    col_cat, col_ds = st.columns(2)
+    with col_ds:
+      st.markdown("Full dataset metadata (TTL)")
+      st.markdown(
+        """
+        <a class="rdf-button"
+           href="https://github.com/eugeniavd/retired_places/blob/main/rdf/rdf_serialization/serialization_datasets.ttl"
+           target="_blank">
+           GO
+        </a>
+        """,
+        unsafe_allow_html=True,
+    )
+      
+    with col_cat:
+      st.markdown("Full catalog metadata (TTL)")
+      st.markdown(
+        """
+        <a class="rdf-button"
+           href="https://github.com/eugeniavd/retired_places/blob/main/rdf/rdf_serialization/serialization_catalog.ttl"
+           target="_blank">
+           GO
+        </a>
+        """,
+        unsafe_allow_html=True,
+    )
+    
+    st.markdown(
+    """
+The catalog is modeled as a `dcat:Catalog` and is explicitly declared as conforming to
+**[DCAT v3](https://www.w3.org/TR/vocab-dcat-3/)** via `dct:conformsTo`. Each dataset is represented as a `dcat:Dataset` and linked from the catalog via `dcat:dataset`.
+"""
+)
+    col_catalog, col_dataset = st.columns(2)
+    
+    with col_catalog:
+       st.markdown("**Catalog metadata (dcat:Catalog)**")
+       st.markdown(
+        """
+- `dct:title`, `dct:description` – human-readable catalog description  
+- `dct:issued`, `dct:modified` – creation and last update dates  
+- `dct:publisher` – project-level publisher (`foaf:Organization`)  
+- `dct:license` – **CC0 1.0 Universal** for the catalog metadata  
+- `adms:identifier` – stable catalog identifier  
+- `dcat:language` – catalog documentation language  
+- `dcat:themeTaxonomy` – link to the Publications Office of the EU “data-theme” controlled vocabulary used to classify datasets by topic  
+        """
+    )
+       
+with col_dataset:
+       st.markdown("**Dataset metadata (dcat:Dataset)**")
+       st.markdown(
+        """
+- `dct:title`, `dct:description` – with language tags  
+- `dct:publisher`, `dct:creator` – ISTAT, Geofabrik/OSM, or the *Retired Places* project  
+- `dct:issued` – publication year  
+- `dct:spatial` – spatial coverage (Italy)  
+- One or more `dcat:Distribution` nodes describing access URLs, file formats (CSV, XLSX, SHP, GPKG) and access rights  
+- `dct:license` – either **CC BY 4.0** or **ODbL 1.0**, depending on the source and type of data  
+- Thematic classification via the EU “data-theme” vocabulary (e.g. `SOCI` for “Population and society”, `REGI` for “Regions and cities”)  
+        """
+    )
+       
+    
+st.markdown("---")
+
+
+# ===== TAB 2: SEMANTIC ENRICHMENT =====
+
+with tab_enrich:
+    st.subheader("Semantic Enrichment of the Datasets")
+
+    st.markdown(
+        """
+Semantic enrichment builds on top of the metadata inherited from the original sources
+(**ISTAT** and **Geofabrik**) and adds a lightweight semantic layer that makes
+the datasets easier to discover, link and reuse.
+        """
+    )
+
+    st.markdown("### Ontology stack")
+
+    ontology_items = [
+    {
+        "id": "dcat",
+        "name": "DCAT (v3)",
+        "subtitle": "Core vocabulary for catalog and dataset description",
+        "details": """
+**DCAT (v3)** is used as the core vocabulary for catalog and dataset description:
+
+- `dcat:Catalog` – the Retired Places catalog  
+- `dcat:Dataset` – individual source, mashup and merged datasets  
+- `dcat:distribution` – links from datasets to their downloadable files  
+- `dcat:mediaType` – MIME type of each distribution  
+- `dcat:accessURL` – access URLs for CSV/XLSX/SHP/GPKG files  
+- `dcat:theme` – thematic classification using the EU “data-theme” vocabulary  
+- `dcat:language` – languages of human-readable descriptions  
+        """,
+    },
+    {
+        "id": "dcterms",
+        "name": "DCTERMS",
+        "subtitle": "General metadata properties (Dublin Core Terms)",
+        "details": """
+**Dublin Core Terms (DCTERMS)** provide general metadata fields shared across datasets:
+
+- `dct:title`, `dct:description` – human-readable titles and descriptions  
+- `dct:creator`, `dct:publisher` – ISTAT, Geofabrik/OSM, or the Retired Places project  
+- `dct:issued` – year of production or publication  
+- `dct:spatial` – spatial coverage (Italy)  
+- `dct:source` – link to the original source page  
+- `dct:license` – dataset license (CC BY 4.0 or ODbL 1.0)  
+- `dct:accessRights` – access conditions when relevant  
+- `dct:language` – language of labels and descriptions, via Lexvo URIs  
+        """,
+    },
+    {
+        "id": "prov",
+        "name": "PROV-O",
+        "subtitle": "Dataset lineage and derivation",
+        "details": """
+**PROV-O** is used to describe how mashup and merged datasets are derived:
+
+- `prov:wasDerivedFrom` – links each mashup or merged dataset back to  
+  its original ISTAT tables and OSM/Geofabrik geospatial sources  
+
+This makes the transformation chains between source and project-generated datasets explicit.
+        """,
+    },
+    {
+        "id": "adms",
+        "name": "ADMS",
+        "subtitle": "Identifiers at catalog level",
+        "details": """
+**ADMS (Asset Description Metadata Schema)** is used at catalog level for:
+
+- `adms:identifier` – stable identifier of the catalog  
+
+This helps reference the catalog itself as a reusable asset.
+        """,
+    },
+    {
+        "id": "skos",
+        "name": "SKOS",
+        "subtitle": "Theme vocabulary and concept labels",
+        "details": """
+**SKOS** is used to model and interpret the external theme vocabulary:
+
+- `skos:ConceptScheme` – the EU “data-theme” vocabulary  
+- `skos:Concept` – individual theme entries (e.g. `SOCI`, `REGI`)  
+- `skos:prefLabel` – human-readable labels for each theme  
+
+These concepts are referenced from datasets via `dcat:theme`.
+        """,
+    },
+    {
+        "id": "foaf",
+        "name": "FOAF",
+        "subtitle": "Project-level publisher description",
+        "details": """
+**FOAF** is used in the catalog graph to describe the project-level publisher:
+
+- `foaf:Organization` – the Retired Places project as an organisation  
+- `foaf:name` – the organisation’s human-readable name  
+        """,
+    },
+    {
+        "id": "cc",
+        "name": "Creative Commons (CC)",
+        "subtitle": "License model for the catalog metadata",
+        "details": """
+**Creative Commons** terms are used to describe the catalog license:
+
+- `cc:License`, `cc:legalcode` – reference the **CC0 1.0 Universal** legal code  
+
+The catalog metadata is released under CC0, while individual datasets retain
+their own licenses (e.g. CC BY 4.0, ODbL 1.0).
+        """,
+    },
+]
+
+    st.markdown('<div id="ontology-tiles">', unsafe_allow_html=True)
+
+    cols = st.columns(3)
+    for idx, item in enumerate(ontology_items):
+        col = cols[idx % 3]
+        with col:
+        
+            header = f"{item['name']}"
+        
+            with st.expander(header, expanded=False):
+                st.markdown(item["details"])
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    st.info(
+    """
+    Although the Italian profile **DCAT-AP_IT** is not fully instantiated in the current RDF graphs 
+    (no `dcatapit:` properties are directly used), the metadata model has been designed to remain 
+    compatible with DCAT-AP_IT constraints. The catalog can be extended with DCAT-AP_IT-specific 
+    properties (e.g. `dcatapit:identifier`, `dcatapit:publisher`) if integration with national open data 
+    portals is required in the future.
+    """
+)    
+
+    subtab_sources, subtab_layers = st.tabs(
+        ["Source metadata", "Enrichment layers"]
+    )
+
+    # ---------- Subtab 1: Source metadata ----------
+    with subtab_sources:
+        st.markdown("### Where does the metadata come from?")
+
+        col_istat, col_osm = st.columns(2)
+
+        with col_istat:
+            st.markdown("**ISTAT statistical tables**")
+            st.markdown(
+                """
+- Official documentation for population and housing tables  
+- Table-level descriptions, units and reference years  
+- Region codes and territorial classifications  
+                """
+            )
+
+        with col_osm:
+            st.markdown("**Geofabrik / OpenStreetMap geospatial layers**")
+            st.markdown(
+                """
+- Metadata for regional boundaries and settlement locations  
+- Information on extraction date, coverage and feature types  
+- Links back to OpenStreetMap and Geofabrik download pages  
+                """
+            )
+
+        st.markdown(
+            """
+Additional metadata is added or clarified, for example:
+
+- English titles and descriptions for all datasets and project documentation  
+- Explicit links to the Publications Office **“data-theme”** vocabulary used for
+  thematic classification  
+            """
+        )
+
+    # ---------- Subtab 2: Enrichment layers ----------
+    with subtab_layers:
+        st.markdown("### What semantic enrichment is applied?")
+
+        st.markdown("#### 1. Thematic classification (`dcat:theme`)")
+        st.markdown(
+            """
+Each dataset is tagged with one or more `dcat:theme` values pointing to the
+EU “data-theme” controlled vocabulary
+(<http://publications.europa.eu/resource/authority/data-theme/…>), modeled as `skos:Concept`.
+
+Examples:
+
+- `SOCI` – **“Population and society”** for demographic and ageing indicators  
+- `REGI` – **“Regions and cities”** for territorial and geospatial datasets  
+            """
+        )
+
+        st.markdown("#### 2. Language information (`dct:language`)")
+        st.markdown(
+            """
+Dataset titles and descriptions are annotated with `dct:language` using **Lexvo URIs**, e.g.:
+
+- <http://lexvo.org/id/iso639-1/it> for Italian  
+- <http://lexvo.org/id/iso639-1/en> for English  
+
+This makes it explicit which language each human-readable field is written in and
+supports multilingual discovery.
+            """
+        )
+
+        st.markdown("#### 3. Provenance and derivation (`dct:source`, `prov:wasDerivedFrom`)")
+        st.markdown(
+            """
+For mashup and merged datasets, provenance chains are recorded explicitly:
+
+- `dct:source` – links each mashup back to the original source pages (ISTAT, Geofabrik/OSM, etc.)  
+- `prov:wasDerivedFrom` – describes which input datasets were combined to produce
+  a given mashup or merged dataset  
+
+This allows users to see **exactly which sources** were used and to trace how the
+tabular indicators and geospatial layers were constructed.
+            """
+        )
+
+
+# ===== TAB 3: RDF FOR INTEROPERABILITY =====
+with tab_interop:
+    st.subheader("RDF as a Model for Data Interoperability")
+
+    st.markdown(
+        """
+        All metadata is represented using the Resource Description Framework (**RDF**), 
+        a W3C standard in which information is modeled as triples *(subject–predicate–object)*.  
+
+        This RDF-based representation:
+
+        - enables machine-readable linking of datasets across institutions;
+        - aligns the project with European Open Data and Linked Data practices;
+        - facilitates future federation with other LOD resources 
+          (e.g. demographic or spatial knowledge graphs);
+        - supports sustainable reuse of the datasets and their metadata, in line with the 
+          course requirement to document data provenance, legal context and reuse conditions 
+          in a transparent way.
+        """
+    )
+
 
 
 # ---------- SUSTAINABILITY OF DATASET UPDATES ----------

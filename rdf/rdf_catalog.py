@@ -71,7 +71,7 @@ catalog_g.add((theme_taxonomy_uri, DCT.description, Literal(
 dcat_ap_uri = URIRef("https://www.w3.org/TR/vocab-dcat-3/")
 catalog_g.add((catalog_uri, DCT.conformsTo, dcat_ap_uri))
 
-# License – ODbL 1.0
+# License
 license_uri = URIRef("https://creativecommons.org/publicdomain/zero/1.0/")
 catalog_g.add((catalog_uri, DCT.license, license_uri))
 

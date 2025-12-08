@@ -1,5 +1,5 @@
 from rdflib import Graph, Literal, Namespace, URIRef, BNode
-from rdflib.namespace import RDF, RDFS, XSD, DCTERMS as DCT, PROV
+from rdflib.namespace import RDF, RDFS, XSD, DCTERMS as DCT, PROV, FOAF
 import os
 
 # Namespaces
@@ -10,7 +10,7 @@ ADMS = Namespace("http://www.w3.org/ns/adms#")
 CC = Namespace("http://creativecommons.org/ns#")
 XSD_NS = Namespace("http://www.w3.org/2001/XMLSchema#")
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
-FOAF_NS = Namespace("https://hexdocs.pm/foaf/FOAF.NS.FOAF.html#summary")
+FOAF_NS = Namespace("http://xmlns.com/foaf/0.1/")
 
 # Base namespace the project datasets
 OLD = Namespace("https://github.com/eugeniavd/retired_places/")
@@ -456,6 +456,9 @@ datasets_list = [
                 ),
             }
         ],
+        "derived_from": [               
+        OLD["D2_housing_it"],                          
+    ],
 
         "license_uri": "https://creativecommons.org/licenses/by/4.0/",
         "keywords": [
@@ -507,6 +510,11 @@ datasets_list = [
             }
         ],
 
+        "derived_from": [
+        OLD["D1_population_regions"]                
+        
+    ],
+
         "license_uri": "https://creativecommons.org/licenses/by/4.0/",
         "keywords": [
             "ageing", "65 plus", "older population",
@@ -557,6 +565,11 @@ datasets_list = [
             }
         ],
 
+        "derived_from": [
+        OLD["MED1_settlements_italy"]
+        
+    ],
+
         "license_uri": "https://opendatacommons.org/licenses/odbl/1-0/",
         "keywords": [
             "settlements", "places",
@@ -605,6 +618,13 @@ datasets_list = [
                 ),
             }
         ],
+
+        "derived_from": [
+        OLD["MD3_settlements_count"],
+        OLD["MD2_share_65_plus"],
+        OLD["MD1_share_houses_occupation"]
+        
+    ],
 
         "license_uri": "https://opendatacommons.org/licenses/odbl/1-0/",
         "keywords": [
@@ -661,6 +681,12 @@ datasets_list = [
             }
         ],
 
+        "derived_from": [
+        OLD["MD2_share_65_plus"],
+        OLD["MD1_share_houses_occupation"]
+        
+    ],
+
         "license_uri": "https://creativecommons.org/licenses/by/4.0/",
         "keywords": [
             "ageing", "housing", "65 plus",
@@ -711,6 +737,15 @@ datasets_list = [
                 ),
             }
         ],
+
+        "derived_from": [
+        OLD["GD2_places_center"],
+        OLD["GD3_places_islands"],
+        OLD["GD4_places_north_east"],
+        OLD["GD5_places_north_west"],
+        OLD["GD6_places_south"]
+        
+    ],
 
         "license_uri": "https://opendatacommons.org/licenses/odbl/1-0/",
 
@@ -849,6 +884,20 @@ for data in datasets_list:
                      DCT.accessRights,
                      URIRef(access_rights))
                 )
+    # --- Provenance ---
+    if data.get("derived_from"):
+        derived_list = data["derived_from"]
+        if not isinstance(derived_list, list):
+            derived_list = [derived_list]
+
+        for src in derived_list:
+            
+            if isinstance(src, URIRef):
+                src_uri = src
+            else:
+                src_uri = URIRef(src)
+
+            g.add((dataset_uri, PROV.wasDerivedFrom, src_uri))            
 
     # --- License ---
     if data.get("license_uri"):
