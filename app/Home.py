@@ -7,7 +7,7 @@ import numpy as np
 import plotly.graph_objects as go
 
 
-# ---------- DATA LOADING (CACHED) ----------
+# ---------- DATA LOADING ----------
 
 st.set_page_config(page_title="Retired Places", layout="wide")
 
@@ -43,24 +43,20 @@ st.set_page_config(
 
 # ---------- SIDEBAR NAVIGATION ----------
 NAV_ITEMS = [
-    ("Hero / Top", "#top"),
     ("About", "#about-section"),
-    ("Results & Visualisations", "#results-section"),
+    ("Key Findings", "#results-section"),
     ("Scenario", "#scenario-section"),
     ("Datasets", "#datasets-section"),
-    ("Key Findings", "#findings-section"),
-    ("Documentation", "#docs-section"),
-    ("Metadata (DCAT-AP / PROV)", "#metadata-section"),
-    ("Preprocessing", "#preprocessing-section"),
-    ("RDF Assertion", "#rdf-section"),
+    ("Analysis", "#docs-section"),
     ("Sustainability", "#sustainability-section"),
+    ("Visualisations", "#graphs-section"),
+    ("RDF Assertion", "#rdf-section"),
     ("Licenses & Credits", "#licenses-section"),
     ("Team", "#team-section"),
 ]
 
 with st.sidebar:
-    st.title("Navigation")
-    st.markdown("Jump to section:")
+    st.title("Jump to section")
     for label, anchor in NAV_ITEMS:
         st.markdown(f"- [{label}]({anchor})")
 
@@ -115,9 +111,8 @@ ontology_css = """
 }
 
 #ontology-tiles div[data-testid="stExpander"]:hover {
-    border-color: #f97316;
-    background-color: #fff7ed;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.10);
+    background-color: #fff7f0; 
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
     transform: translateY(-2px);
 }
 
@@ -129,6 +124,51 @@ ontology_css = """
 </style>
 """
 st.markdown(ontology_css, unsafe_allow_html=True)
+
+# dataset cards
+card_css = """
+<style>
+.dataset-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+    height: 100%;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.dataset-card:hover {
+    background-color: #fff7f0; 
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.dataset-card-title {
+    font-weight: 700;
+    margin-bottom: 0.1rem;
+}
+
+.dataset-card-subtitle {
+    font-size: 0.9rem;
+    color: #555555;
+    margin-bottom: 0.35rem;
+}
+
+.dataset-card-divider {
+    border-top: 1px solid #e0e0e0;
+    margin: 0.35rem 0 0.6rem 0;
+}
+
+.dataset-card-uri {
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+</style>
+"""
+st.markdown(card_css, unsafe_allow_html=True)
+
 
 # ---------- HERO BLOCK ----------
 with st.container():
@@ -159,7 +199,7 @@ st.write("---")
 
 # ---------- RESULTS & VISUALISATIONS ----------
 st.markdown("<div id='results-section'></div>", unsafe_allow_html=True)
-st.header("Results & Visualisations")
+st.header("Key Findings")
 
 tab_map, tab_summary = st.tabs(["Map", "Summary chart"])
 
@@ -301,50 +341,6 @@ st.write("---")
 # ---------- DATASETS ----------
 st.markdown("<div id='datasets-section'></div>", unsafe_allow_html=True)
 st.header("Datasets")
-
-
-card_css = """
-<style>
-.dataset-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1rem 1.2rem;
-    background-color: #ffffff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    margin-bottom: 1.5rem;
-    height: 100%;
-    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
-}
-
-.dataset-card:hover {
-    background-color: #fff7f0; /* чуть более яркий фон */
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
-}
-
-.dataset-card-title {
-    font-weight: 700;
-    margin-bottom: 0.1rem;
-}
-
-.dataset-card-subtitle {
-    font-size: 0.9rem;
-    color: #555555;
-    margin-bottom: 0.35rem;
-}
-
-.dataset-card-divider {
-    border-top: 1px solid #e0e0e0;
-    margin: 0.35rem 0 0.6rem 0;
-}
-
-.dataset-card-uri {
-    font-family: monospace;
-    font-size: 0.9rem;
-}
-</style>
-"""
-st.markdown(card_css, unsafe_allow_html=True)
 
 def render_dataset_card(ds: dict):
    
@@ -596,29 +592,12 @@ with tab_merged:
             with col:
                 render_dataset_card(ds)
 
-
-# ---------- KEY FINDINGS ----------
-st.markdown("<div id='findings-section'></div>", unsafe_allow_html=True)
-st.header("Key Findings")
-
-st.write(
-    """
-    Main takeaways from the analysis (4–6 bullet points):
-
-    - Data quality: …
-    - Limitations and caveats: …
-    - Ethical considerations: …
-    - Policy or practical recommendations: …
-    - Future work: …
-    """
-)
-
 st.write("---")
 
 
-# ---------- DOCUMENTATION ----------
+# ---------- Analysis ----------
 st.markdown("<div id='docs-section'></div>", unsafe_allow_html=True)
-st.header("Documentation")
+st.header("Analysis")
 
 with st.expander("Quality"):
     st.write("Short summary of data quality assessment (completeness, accuracy, consistency, timeliness, etc.).")
@@ -660,70 +639,29 @@ with st.expander("Technical"):
         key="download_technical",
     )
 
-with st.expander("Sustainability"):
-    st.write("Short summary of sustainability aspects (maintenance, governance, update cycles, costs, etc.).")
-    st.download_button(
-        label="Download full Sustainability plan (PDF/MD)",
-        data="PLACEHOLDER_SUSTAIN_DOC",
-        file_name="sustainability_plan_placeholder.txt",
-        mime="text/plain",
-        key="download_sustainability",
-    )
+st.write("---")
+
+# ---------- SUSTAINABILITY OF DATASET UPDATES ----------
+st.markdown("<div id='sustainability-section'></div>", unsafe_allow_html=True)
+st.header("Sustainability of Dataset Updates Over Time")
+
+st.write(
+    """
+    Explain how the datasets will be updated and maintained:
+
+    - Update frequency and triggers
+    - Responsibilities and governance
+    - Versioning and archival strategies
+    - Long-term sustainability (funding, hosting, community)
+    """
+)
 
 st.write("---")
 
 
-# ---------- METADATA (DCAT-AP / PROV) ----------
-st.markdown("<div id='metadata-section'></div>", unsafe_allow_html=True)
-st.header("Metadata and Provenance (DCAT-AP / PROV)")
-
-col_meta1, col_meta2, col_meta3 = st.columns([1, 1, 2])
-
-with col_meta1:
-    st.download_button(
-        label="Download JSON-LD",
-        data="PLACEHOLDER_JSON_LD",
-        file_name="metadata.jsonld",
-        mime="application/ld+json",
-        key="download_jsonld",
-    )
-
-with col_meta2:
-    st.download_button(
-        label="Download Turtle (TTL)",
-        data="PLACEHOLDER_TTL",
-        file_name="metadata.ttl",
-        mime="text/turtle",
-        key="download_ttl",
-    )
-
-with col_meta3:
-    st.markdown("**Validation status**")
-    st.success("✓ Valid (example status – replace with real validation results)")
-    # Or, if there are warnings:
-    # st.warning("! Warnings – see validation report for details.")
-
-with st.expander("Show metadata snippet"):
-    st.code(
-        """
-        @prefix dcat: <http://www.w3.org/ns/dcat#> .
-        @prefix dct:  <http://purl.org/dc/terms/> .
-        @prefix prov: <http://www.w3.org/ns/prov#> .
-
-        <https://example.org/dataset/1> a dcat:Dataset ;
-            dct:title "Example dataset"@en ;
-            dct:publisher <https://example.org/organisation/1> ;
-            prov:wasGeneratedBy <https://example.org/activity/cleaning> .
-        """,
-        language="turtle",
-    )
-
-st.write("---")
-
-
-# ---------- PREPROCESSING ----------
-st.markdown("<div id='preprocessing-section'></div>", unsafe_allow_html=True)
-st.header("Preprocessing of Data and Visualisations")
+# ---------- VISUALISATIONS ----------
+st.markdown("<div id='graphs-section'></div>", unsafe_allow_html=True)
+st.header("Visualisations")
 
 tab_ranked, tab_scatter, tab_disp, tab_overview = st.tabs(
     [
@@ -1657,7 +1595,7 @@ with tab_interop:
         All metadata is represented using the Resource Description Framework (**RDF**), 
         a W3C standard in which information is modeled as triples *(subject–predicate–object)*.  
 
-        This RDF-based representation:
+        **This RDF-based representation:**
 
         - enables machine-readable linking of datasets across institutions;
         - aligns the project with European Open Data and Linked Data practices;
@@ -1668,25 +1606,6 @@ with tab_interop:
           in a transparent way.
         """
     )
-
-
-
-# ---------- SUSTAINABILITY OF DATASET UPDATES ----------
-st.markdown("<div id='sustainability-section'></div>", unsafe_allow_html=True)
-st.header("Sustainability of Dataset Updates Over Time")
-
-st.write(
-    """
-    Explain how the datasets will be updated and maintained:
-
-    - Update frequency and triggers
-    - Responsibilities and governance
-    - Versioning and archival strategies
-    - Long-term sustainability (funding, hosting, community)
-    """
-)
-
-st.write("---")
 
 
 # ---------- LICENSES AND CREDITS ----------
