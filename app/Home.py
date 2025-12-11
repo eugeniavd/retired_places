@@ -6,6 +6,11 @@ from pathlib import Path
 import numpy as np
 import plotly.graph_objects as go
 
+# ---------- PAGE CONFIG ----------
+st.set_page_config(
+    page_title="Open Data Project",
+    layout="wide"
+)
 
 # ---------- DATA LOADING ----------
 
@@ -35,11 +40,6 @@ def load_data():
 df_regions, regions_geojson, df_disp = load_data()
 
 
-# ---------- PAGE CONFIG ----------
-st.set_page_config(
-    page_title="Open Data Project",
-    layout="wide"
-)
 
 # ---------- SIDEBAR NAVIGATION ----------
 NAV_ITEMS = [
