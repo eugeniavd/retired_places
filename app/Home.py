@@ -202,8 +202,7 @@ st.header("About the Project")
  
 st.write(
     """
-    **“Retired” Places** is a data-driven exploration of how population ageing, housing vacancy, and s
-    ettlement structure intersect across Italian regions. The project asks where “retired people” 
+    **“Retired” Places** is a data-driven exploration of how population ageing, housing vacancy, and settlement structure intersect across Italian regions. The project asks where “retired people” 
     (older residents) and “retired places” (territories marked by abandonment and dispersion) overlap — 
     and where they diverge.
 
@@ -378,7 +377,7 @@ with tab_summary:
         line-height: 1;
     }
     .result-main {
-    font-size: 3.5rem;   
+    font-size: 3rem;   
     font-weight: 700;
     margin: 0;
 }
@@ -724,7 +723,7 @@ These source datasets were chosen on the basis of:
 with tab_mashup:
     st.markdown(
         """
-On the basis of the sources, we constructed 6 mashup datasets in which the original tables and geodata 
+On the basis of the sources, we constructed 5 mashup and 1 merged dataset in which the original tables and geodata 
 were cleaned, integrated, and harmonised into a coherent analytical framework. These mashup datasets 
 combine demographic indicators, housing indicators, and settlement structure measures at the regional 
 level, and were explicitly tailored to address the project’s research questions. In doing so, we preserved 
@@ -891,8 +890,7 @@ The reference year for the data is 2021, with an annual reporting frequency. For
 
 *Accuracy – High*
 
-The dataset represents official regional administrative boundaries in a standard geographic reference system 
-([**WGS84**](https://www.wikidata.org/wiki/Q11902211?uselang=it)), which is widely used for web mapping and spatial analysis. Attribute fields (e.g. regional identifiers and names) are expected to follow the national administrative nomenclature, 
+Attribute fields (e.g. regional identifiers and names) are expected to follow the national administrative nomenclature, 
 allowing unambiguous linkage with tabular datasets such as population and housing statistics. While minor geometric 
 tolerances are inherent to any vector representation, the level of positional accuracy is appropriate for regional-scale analysis. Taken together, these characteristics support a High rating for syntactic and semantic accuracy.
 
@@ -1194,8 +1192,10 @@ TECH_TEXTS = {
 ##### Metadata Quality (AgID model)
 
 - **Syntactic quality – High**  
-  The “confini delle unità amministrative a fini statistici” are distributed as ESRI shapefiles in [**WGS84**](https://www.wikidata.org/wiki/Q11902211?uselang=it) with 
-  a corresponding `.prj` file and a structured `.dbf` attribute table. Metadata follow national and INSPIRE/INSPIRE-aligned profiles, describing projection, scale, 
+  The shapefile was originally provided in a projected coordinate reference system, WGS 84 / UTM zone 32N (EPSG:32632), i.e. with eastings and northings in metres 
+  rather than geographic latitude/longitude coordinates. Although this CRS is based on the [**WGS84**](https://www.wikidata.org/wiki/Q11902211?uselang=it) datum, it is not equivalent to the commonly used geographic 
+  CRS WGS 84 (EPSG:4326). For compatibility with web mapping tools and other GeoJSON-based workflows, the dataset was reprojected to EPSG:4326.
+  Metadata follow national and INSPIRE/INSPIRE-aligned profiles, describing projection, scale, 
   lineage, and update cycle.
 
 - **Semantic quality – High**  
@@ -1547,7 +1547,9 @@ ISTAT regional boundaries (D3), and OpenStreetMap settlement points (GD2–GD6).
         with st.expander("Data Ethics Principles", expanded=False):
             st.markdown(
                 """
+
 *Human-Centric Design*
+
 The project investigates how demographic ageing, housing vacancy, and settlement structure interact across Italian regions and inner areas. By focusing on aggregated 
 indicators (e.g. share of population aged 65+, share of unoccupied dwellings, density and hierarchy of settlements), the analysis aims to support more equitable 
 territorial and social policies—especially for older residents and communities facing depopulation, reduced services, or increased environmental risk.
@@ -1621,7 +1623,7 @@ territorial cohesion, service provision for older residents, and sustainable reg
 
 # =============== TECHNICAL TAB ===============
 with tab_technical:
-    st.markdown("### Technical analysis")
+    st.markdown("### Technical Analysis")
     st.info("Metadata structure and FAIR principles compliance.")
     st.markdown(
         """
