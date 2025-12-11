@@ -2,7 +2,7 @@ import streamlit as st
 
 # ---------- PAGE CONFIG ----------
 st.set_page_config(
-    page_title="Open Data Project",
+    page_title="Retired Places",
     layout="wide"
 )
 import pandas as pd
@@ -15,8 +15,6 @@ import plotly.graph_objects as go
 
 
 # ---------- DATA LOADING ----------
-
-st.set_page_config(page_title="Retired Places", layout="wide")
 
 @st.cache_data
 def load_data():
