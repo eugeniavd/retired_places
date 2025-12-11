@@ -1,4 +1,10 @@
 import streamlit as st
+
+# ---------- PAGE CONFIG ----------
+st.set_page_config(
+    page_title="Open Data Project",
+    layout="wide"
+)
 import pandas as pd
 import json
 import plotly.express as px
@@ -6,11 +12,7 @@ from pathlib import Path
 import numpy as np
 import plotly.graph_objects as go
 
-# ---------- PAGE CONFIG ----------
-st.set_page_config(
-    page_title="Open Data Project",
-    layout="wide"
-)
+
 
 # ---------- DATA LOADING ----------
 
