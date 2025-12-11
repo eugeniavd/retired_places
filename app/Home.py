@@ -2492,7 +2492,7 @@ The catalog is modeled as a `dcat:Catalog` and is explicitly declared as conform
 - `dct:publisher` – project-level publisher (`foaf:Organization`)  
 - `dct:license` – **CC0 1.0 Universal** for the catalog metadata  
 - `adms:identifier` – stable catalog identifier  
-- `dcat:language` – catalog documentation language  
+- `dct:language` – catalog documentation language  
 - `dcat:themeTaxonomy` – link to the Publications Office of the EU “data-theme” controlled vocabulary used to classify datasets by topic  
         """
     )
@@ -2544,7 +2544,7 @@ the datasets easier to discover, link and reuse.
 - `dcat:mediaType` – MIME type of each distribution  
 - `dcat:accessURL` – access URLs for CSV/XLSX/SHP/GPKG files  
 - `dcat:theme` – thematic classification using the EU “data-theme” vocabulary  
-- `dcat:language` – languages of human-readable descriptions  
+- `dct:language` – languages of human-readable descriptions  
         """,
     },
     {
@@ -2710,10 +2710,10 @@ Examples:
             """
         )
 
-        st.markdown("#### 2. Language information (`dcat:language`)")
+        st.markdown("#### 2. Language information (`dct:language`)")
         st.markdown(
             """
-Dataset titles and descriptions are annotated with `dcat:language` using **Lexvo URIs**, e.g.:
+Dataset titles and descriptions are annotated with `dct:language` using **Lexvo URIs**, e.g.:
 
 - <http://lexvo.org/id/iso639-1/it> for Italian  
 - <http://lexvo.org/id/iso639-1/en> for English  

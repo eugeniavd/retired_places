@@ -3,7 +3,7 @@ from rdflib.namespace import RDF, RDFS, XSD, DCTERMS as DCT, PROV, FOAF
 import os
 
 # Namespaces
-DCAT = Namespace("http://www.w3.org/ns/dcat3#")
+DCAT = Namespace("http://www.w3.org/ns/dcat#")
 DCATAPIT = Namespace("http://dati.gov.it/onto/dcatapit/")
 ADMS = Namespace("http://www.w3.org/ns/adms#")
 CC = Namespace("http://creativecommons.org/ns#")
@@ -805,7 +805,7 @@ for data in datasets_list:
     if data_lang:
       g.add(
           (dataset_uri,
-           DCAT.language,
+           DCT.language,
            URIRef(f"http://lexvo.org/id/iso639-1/{data_lang}"))
       )               
 
@@ -840,7 +840,7 @@ for data in datasets_list:
     if content_lang:
         g.add(
             (dataset_uri,
-             DCAT.language,
+             DCT.language,
              URIRef(f"http://lexvo.org/id/iso639-1/{content_lang}"))
         )
 

@@ -3,7 +3,7 @@ from rdflib.namespace import RDF, RDFS, XSD, DCTERMS as DCT, PROV, FOAF
 import os
 
 # Namespaces
-DCAT = Namespace("http://www.w3.org/ns/dcat3#")
+DCAT = Namespace("http://www.w3.org/ns/dcat#")
 DCATAPIT = Namespace("http://dati.gov.it/onto/dcatapit/")
 ADMS = Namespace("http://www.w3.org/ns/adms#")
 CC = Namespace("http://creativecommons.org/ns#")
@@ -46,9 +46,9 @@ catalog_g.add((publisher_uri, FOAF.name, Literal("Open Access – Retired Places
 catalog_g.add((catalog_uri, DCT.issued, Literal("2025-11-13", datatype=XSD.date)))
 catalog_g.add((catalog_uri, DCT.modified, Literal("2025-12-07", datatype=XSD.date)))
 
-# DCAT.language
-catalog_g.add((catalog_uri, DCAT.language, URIRef("http://www.lexvo.org/page/iso639-3/eng")))
-catalog_g.add((catalog_uri, DCAT.language, URIRef("http://www.lexvo.org/page/iso639-3/ita")))
+# language
+catalog_g.add((catalog_uri, DCT.language, URIRef("http://www.lexvo.org/page/iso639-3/eng")))
+catalog_g.add((catalog_uri, DCT.language, URIRef("http://www.lexvo.org/page/iso639-3/ita")))
 
 # ADMS.identifier
 catalog_g.add((catalog_uri, ADMS.identifier, Literal("OLD_catalog", datatype=XSD.string)))
