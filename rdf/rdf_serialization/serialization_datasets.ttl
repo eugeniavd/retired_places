@@ -1,4 +1,4 @@
-@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcat1: <http://www.w3.org/ns/dcat3#> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix old: <https://github.com/eugeniavd/retired_places/> .
@@ -6,7 +6,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-old:catalog dcat:dataset old:D1_population_regions,
+old:catalog dcat1:dataset old:D1_population_regions,
         old:D2_housing_it,
         old:GD1_regions_it,
         old:GD2_places_center,
@@ -21,312 +21,312 @@ old:catalog dcat:dataset old:D1_population_regions,
         old:MD5_age_houses_occupation,
         old:MED1_settlements_italy .
 
-old:GD1_regions_it a dcat:Dataset ;
+old:GD1_regions_it a dcat1:Dataset ;
     dct:creator <https://www.istat.it/> ;
-    dct:description "Geospatial dataset of Italian administrative regions (NUTS 2 level) used for statistical purposes. The dataset provides polygon geometries for regional boundaries in 2025."@it ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/it> ;
+    dct:description "Geospatial dataset of Italian administrative regions (NUTS 2 level) used for statistical purposes. The dataset provides polygon geometries for regional boundaries in 2025."@en ;
     dct:license <https://creativecommons.org/licenses/by/4.0/> ;
     dct:publisher <https://www.istat.it/> ;
     dct:source <https://www.istat.it/notizia/confini-delle-unita-amministrative-a-fini-statistici-al-1-gennaio-2018-2/> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
-    dct:title "GD1 – Italy Regions Boundaries"@it ;
-    dcat:distribution [ a dcat:Distribution ;
+    dct:title "GD1 – Italy Regions Boundaries"@en ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "SHP" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD1_regions_it> ;
-            dcat:mediaType "application/x-shapefile" ] ;
-    dcat:keyword "confini"@it,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD1_regions_it> ;
+            dcat1:mediaType "application/x-shapefile" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "confini"@it,
         "geometrie"@it,
         "regioni"@it ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/it> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
     prov:wasDerivedFrom <https://www.istat.it/notizia/confini-delle-unita-amministrative-a-fini-statistici-al-1-gennaio-2018-2/> .
 
-old:MD4_dispertion_places a dcat:Dataset ;
+old:MD4_dispertion_places a dcat1:Dataset ;
     dct:creator <https://github.com/eugeniavd> ;
     dct:description "Derived index capturing the dispersion of settlements across Italian regions. The dataset combines the number of small settlements with regional population or area to approximate how dispersed or concentrated settlement patterns are in each region."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://opendatacommons.org/licenses/odbl/1-0/> ;
     dct:publisher <https://github.com/eugeniavd/retired_places> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "MD4 – Dispersed Settlements Index by Region"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "CSV" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD4_dispertion_places.csv> ;
-            dcat:mediaType "text/csv" ] ;
-    dcat:keyword "dispersed places"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD4_dispertion_places.csv> ;
+            dcat1:mediaType "text/csv" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "dispersed places"@en,
         "regional index"@en,
         "settlements dispersion"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
     prov:wasDerivedFrom old:MD1_share_houses_occupation,
         old:MD2_share_65_plus,
         old:MD3_settlements_count .
 
-old:MD5_age_houses_occupation a dcat:Dataset ;
+old:MD5_age_houses_occupation a dcat1:Dataset ;
     dct:creator <https://github.com/eugeniavd> ;
     dct:description "Derived dataset combining ageing indicators and housing occupation metrics for each Italian region. For every region, it reports the size and share of the 65+ population (pop_65plus, tot_pop, share_65plus) together with housing occupation figures (homes_occupied, homes_unoccupied, homes_total) and the share of unoccupied houses (share_unoccupied). The table also includes the normalized region name (region_norm), a region code (region_code) and a macro-region label (macro_region). To support typology and ranking, it adds boolean flags for high ageing and high vacancy (high_65, high_vac), a 2×2 category label (category_2x2) and regional ranks for ageing and vacancy indicators (rank_65, rank_vac, rank_diff)."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://creativecommons.org/licenses/by/4.0/> ;
     dct:publisher <https://github.com/eugeniavd/retired_places> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "MD5 – Ageing vs Housing Occupation by Region"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "CSV" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD5_age_houses_occupation.csv> ;
-            dcat:mediaType "text/csv" ] ;
-    dcat:keyword "65 plus"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD5_age_houses_occupation.csv> ;
+            dcat1:mediaType "text/csv" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "65 plus"@en,
         "ageing"@en,
         "housing"@en,
         "occupied houses"@en,
         "regional indicators"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/SOCI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/SOCI> ;
     prov:wasDerivedFrom old:MD1_share_houses_occupation,
         old:MD2_share_65_plus .
 
-old:D1_population_regions a dcat:Dataset ;
+old:D1_population_regions a dcat1:Dataset ;
     dct:creator <https://www.istat.it/> ;
-    dct:description "Resident population by age, sex and marital status on January 1st. It is a process that, starting from Population Census data, calculates the municipal resident population by sex, year of birth and marital status as of December 31 of each year and is released as of January 1 of the following year. Resident population consists of the people having habitual residence in the national territory even if temporarily absent, both Italian and foreign citizenship."@it ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/it> ;
+    dct:description "Resident population by age, sex and marital status on January 1st. It is a process that, starting from Population Census data, calculates the municipal resident population by sex, year of birth and marital status as of December 31 of each year and is released as of January 1 of the following year. Resident population consists of the people having habitual residence in the national territory even if temporarily absent, both Italian and foreign citizenship."@en ;
     dct:license <https://creativecommons.org/licenses/by/4.0/> ;
     dct:publisher <https://www.istat.it/> ;
     dct:source <https://demo.istat.it/app/?i=POS&l=it> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
-    dct:title "D1 – Italy Population 2025"@it ;
-    dcat:distribution [ a dcat:Distribution ;
+    dct:title "D1 – Italy Population 2025"@en ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "CSV" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/raw/D1_population_regions.csv> ;
-            dcat:mediaType "text/csv" ] ;
-    dcat:keyword "età"@it,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/raw/D1_population_regions.csv> ;
+            dcat1:mediaType "text/csv" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "età"@it,
         "popolazione"@it,
         "regione"@it ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/SOCI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/it> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/SOCI> ;
     prov:wasDerivedFrom <https://demo.istat.it/app/?i=POS&l=it> .
 
-old:D2_housing_it a dcat:Dataset ;
+old:D2_housing_it a dcat1:Dataset ;
     dct:creator <https://www.istat.it/> ;
-    dct:description "Housing census data on dwellings and occupied housing units in Italy. The dataset provides information on the stock of dwellings by type, occupancy status and other housing characteristics at territorial level."@it ;
-    dct:issued "2021"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/it> ;
+    dct:description "Housing census data on dwellings and occupied housing units in Italy. The dataset provides information on the stock of dwellings by type, occupancy status and other housing characteristics at territorial level."@en ;
     dct:license <https://creativecommons.org/licenses/by/4.0/> ;
     dct:publisher <https://www.istat.it/> ;
     dct:source <https://esploradati.istat.it/databrowser/#/it/censpop/categories/DCSS_ABITAZIONI_TV/IT1,DF_DCSS_ABITAZIONI_TV_1,1.0> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
-    dct:title "D2 – Italy Housing Data 2021"@it ;
-    dcat:distribution [ a dcat:Distribution ;
+    dct:title "D2 – Italy Housing Data 2021"@en ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "XLSX" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/raw/D2_housing_it.xlsx> ;
-            dcat:mediaType "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ] ;
-    dcat:keyword "abitazioni"@it,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/raw/D2_housing_it.xlsx> ;
+            dcat1:mediaType "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ] ;
+    dcat1:issued "2021"^^xsd:gYear ;
+    dcat1:keyword "abitazioni"@it,
         "alloggi"@it,
         "censimento"@it ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/it> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
     prov:wasDerivedFrom <https://esploradati.istat.it/databrowser/#/it/censpop/categories/DCSS_ABITAZIONI_TV/IT1,DF_DCSS_ABITAZIONI_TV_1,1.0> .
 
-old:GD2_places_center a dcat:Dataset ;
+old:GD2_places_center a dcat1:Dataset ;
     dct:creator <https://www.openstreetmap.org/> ;
     dct:description "Geospatial dataset of settlement locations in Central Italy, derived from OpenStreetMap via Geofabrik. Used to identify and map settlements in the Centre macro-region."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://opendatacommons.org/licenses/odbl/1-0/> ;
     dct:publisher <https://www.geofabrik.de/> ;
     dct:source <https://download.geofabrik.de/europe/italy.html> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "GD2 – Settlements Location Center"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "SHP" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD2_places_center> ;
-            dcat:mediaType "application/x-shapefile" ] ;
-    dcat:keyword "Italy"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD2_places_center> ;
+            dcat1:mediaType "application/x-shapefile" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "Italy"@en,
         "OpenStreetMap"@en,
         "center"@en,
         "geometry"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
     prov:wasDerivedFrom <https://download.geofabrik.de/europe/italy.html> .
 
-old:GD3_places_islands a dcat:Dataset ;
+old:GD3_places_islands a dcat1:Dataset ;
     dct:creator <https://www.openstreetmap.org/> ;
     dct:description "Geospatial dataset of settlement locations (populated places) in the Italian islands (Sicilia, Sardegna), derived from OpenStreetMap via Geofabrik. Used to map settlements in the Islands macro-region."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://opendatacommons.org/licenses/odbl/1-0/> ;
     dct:publisher <https://www.geofabrik.de/> ;
     dct:source <https://download.geofabrik.de/europe/italy.html> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "GD3 – Settlements Location Islands"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "SHP" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD3_places_islands> ;
-            dcat:mediaType "application/x-shapefile" ] ;
-    dcat:keyword "Italy"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD3_places_islands> ;
+            dcat1:mediaType "application/x-shapefile" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "Italy"@en,
         "OpenStreetMap"@en,
         "geometry"@en,
         "islands"@en,
         "sicily"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
     prov:wasDerivedFrom <https://download.geofabrik.de/europe/italy.html> .
 
-old:GD4_places_north_east a dcat:Dataset ;
+old:GD4_places_north_east a dcat1:Dataset ;
     dct:creator <https://www.openstreetmap.org/> ;
     dct:description "Geospatial dataset of settlement locations (populated places) in North-Eastern Italy, derived from OpenStreetMap via Geofabrik."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://opendatacommons.org/licenses/odbl/1-0/> ;
     dct:publisher <https://www.geofabrik.de/> ;
     dct:source <https://download.geofabrik.de/europe/italy.html> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "GD4 – Settlements Location North-East"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "SHP" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD4_places_north_east> ;
-            dcat:mediaType "application/x-shapefile" ] ;
-    dcat:keyword "Italy"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD4_places_north_east> ;
+            dcat1:mediaType "application/x-shapefile" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "Italy"@en,
         "Nord-Est"@en,
         "OpenStreetMap"@en,
         "geometry"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
     prov:wasDerivedFrom <https://download.geofabrik.de/europe/italy.html> .
 
-old:GD5_places_north_west a dcat:Dataset ;
+old:GD5_places_north_west a dcat1:Dataset ;
     dct:creator <https://www.openstreetmap.org/> ;
     dct:description "Geospatial dataset of settlement locations (populated places) in North-Western Italy, derived from OpenStreetMap via Geofabrik."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://opendatacommons.org/licenses/odbl/1-0/> ;
     dct:publisher <https://www.geofabrik.de/> ;
     dct:source <https://download.geofabrik.de/europe/italy.html> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "GD5 – Settlements Location North-West"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "SHP" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD5_places_north_west> ;
-            dcat:mediaType "application/x-shapefile" ] ;
-    dcat:keyword "Italy"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD5_places_north_west> ;
+            dcat1:mediaType "application/x-shapefile" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "Italy"@en,
         "Nord-Ovest"@en,
         "OpenStreetMap"@en,
         "geometry"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
     prov:wasDerivedFrom <https://download.geofabrik.de/europe/italy.html> .
 
-old:GD6_places_south a dcat:Dataset ;
+old:GD6_places_south a dcat1:Dataset ;
     dct:creator <https://www.openstreetmap.org/> ;
     dct:description "Geospatial dataset of settlement locations (populated places) in Southern Italy, derived from OpenStreetMap via Geofabrik."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://opendatacommons.org/licenses/odbl/1-0/> ;
     dct:publisher <https://www.geofabrik.de/> ;
     dct:source <https://download.geofabrik.de/europe/italy.html> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "GD6 – Settlements Location South"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "SHP" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD6_places_south> ;
-            dcat:mediaType "application/x-shapefile" ] ;
-    dcat:keyword "Italy"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/tree/main/data/raw/GD6_places_south> ;
+            dcat1:mediaType "application/x-shapefile" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "Italy"@en,
         "OpenStreetMap"@en,
         "geometrie"@en,
         "south"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
     prov:wasDerivedFrom <https://download.geofabrik.de/europe/italy.html> .
 
-old:MD3_settlements_count a dcat:Dataset ;
+old:MD3_settlements_count a dcat1:Dataset ;
     dct:creator <https://github.com/eugeniavd> ;
     dct:description "Derived dataset reporting the number of settlements per Italian region. For each region, it provides the total count of small settlements (villages and hamlets), together with the region name (region) and a numeric region code (region_code). This table is used to quantify and compare how densely the territory is fragmented into individual settlements across regions."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://opendatacommons.org/licenses/odbl/1-0/> ;
     dct:publisher <https://github.com/eugeniavd/retired_places> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "MD3 – Number of Settlements per Region"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "CSV" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD3_settlements_count.csv> ;
-            dcat:mediaType "text/csv" ] ;
-    dcat:keyword "geospatial"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD3_settlements_count.csv> ;
+            dcat1:mediaType "text/csv" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "geospatial"@en,
         "places"@en,
         "regions"@en,
         "settlements"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
     prov:wasDerivedFrom old:MED1_settlements_italy .
 
-old:MED1_settlements_italy a dcat:Dataset ;
+old:MED1_settlements_italy a dcat1:Dataset ;
     dct:creator <https://github.com/eugeniavd> ;
     dct:description "Merged geospatial dataset of settlement locations (populated places) for the whole of Italy. It combines the regional settlement extracts used in the project (Center, Islands, North-East, North-West, South) into a single national layer stored as a GeoPackage (GPKG). The dataset is derived from OpenStreetMap data and is used as the core geospatial layer for the analysis of settlement patterns across Italian regions."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://opendatacommons.org/licenses/odbl/1-0/> ;
     dct:publisher <https://github.com/eugeniavd/retired_places> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "MED1 – Settlements Italy (Merged Geospatial Layer)"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "GPKG" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MED1_settlements_italy.gpkg> ;
-            dcat:mediaType "application/geopackage+sqlite3" ] ;
-    dcat:keyword "GeoPackage"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MED1_settlements_italy.gpkg> ;
+            dcat1:mediaType "application/geopackage+sqlite3" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "GeoPackage"@en,
         "Italy"@en,
         "OpenStreetMap"@en,
         "settlements"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/REGI> ;
     prov:wasDerivedFrom old:GD2_places_center,
         old:GD3_places_islands,
         old:GD4_places_north_east,
         old:GD5_places_north_west,
         old:GD6_places_south .
 
-old:MD1_share_houses_occupation a dcat:Dataset ;
+old:MD1_share_houses_occupation a dcat1:Dataset ;
     dct:creator <https://github.com/eugeniavd> ;
     dct:description "Derived dataset providing housing occupation indicators by Italian region. For each region, it reports the number of occupied houses, unoccupied houses and total housing units, along with the share of unoccupied houses (share_unoccupied). The table also includes a normalized region name (region_norm) and a region code (region_code) to support consistent joining and visualizations."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://creativecommons.org/licenses/by/4.0/> ;
     dct:publisher <https://github.com/eugeniavd/retired_places> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "MD1 – Share of Occupied and Unoccupied Houses by Region"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "CSV" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD1_share_houses_occupation.csv> ;
-            dcat:mediaType "text/csv" ] ;
-    dcat:keyword "housing"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD1_share_houses_occupation.csv> ;
+            dcat1:mediaType "text/csv" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "housing"@en,
         "occupied houses"@en,
         "regions"@en,
         "unoccupied houses"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/SOCI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/SOCI> ;
     prov:wasDerivedFrom old:D2_housing_it .
 
-old:MD2_share_65_plus a dcat:Dataset ;
+old:MD2_share_65_plus a dcat1:Dataset ;
     dct:creator <https://github.com/eugeniavd> ;
     dct:description "Derived dataset providing the share of population aged 65 and over by Italian region. For each region, it reports the total number of residents aged 65+ (pop_65plus), total population (tot_pop) and the resulting percentage of older residents (share_65plus). The table also includes the region name (region) and a numeric region code (region_code) to support aggregation, joining and visualization."@en ;
-    dct:issued "2025"^^xsd:gYear ;
-    dct:language <http://lexvo.org/id/iso639-1/en> ;
     dct:license <https://creativecommons.org/licenses/by/4.0/> ;
     dct:publisher <https://github.com/eugeniavd/retired_places> ;
     dct:spatial <https://viaf.org/viaf/152361066> ;
     dct:title "MD2 – Share of Population Aged 65+ by Region"@en ;
-    dcat:distribution [ a dcat:Distribution ;
+    dcat1:distribution [ a dcat1:Distribution ;
             dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
             dct:format "CSV" ;
-            dcat:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD2_share_65_plus.csv> ;
-            dcat:mediaType "text/csv" ] ;
-    dcat:keyword "65 plus"@en,
+            dcat1:accessURL <https://github.com/eugeniavd/retired_places/blob/main/data/processed/MD2_share_65_plus.csv> ;
+            dcat1:mediaType "text/csv" ] ;
+    dcat1:issued "2025"^^xsd:gYear ;
+    dcat1:keyword "65 plus"@en,
         "ageing"@en,
         "demography"@en,
         "older population"@en,
         "regions"@en ;
-    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/SOCI> ;
+    dcat1:language <http://lexvo.org/id/iso639-1/en> ;
+    dcat1:theme <http://publications.europa.eu/resource/authority/data-theme/SOCI> ;
     prov:wasDerivedFrom old:D1_population_regions .
 
 <http://publications.europa.eu/resource/authority/data-theme/SOCI> a skos:Concept ;

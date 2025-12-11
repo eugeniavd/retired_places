@@ -3,8 +3,7 @@ from rdflib.namespace import RDF, RDFS, XSD, DCTERMS as DCT, PROV, FOAF
 import os
 
 # Namespaces
-DCAT = Namespace("http://www.w3.org/ns/dcat#")
-DCAT3 = Namespace("http://www.w3.org/ns/dcat3#")
+DCAT = Namespace("http://www.w3.org/ns/dcat3#")
 DCATAPIT = Namespace("http://dati.gov.it/onto/dcatapit/")
 ADMS = Namespace("http://www.w3.org/ns/adms#")
 CC = Namespace("http://creativecommons.org/ns#")
@@ -18,7 +17,6 @@ catalog_g = Graph()
 
 # Prefixes
 catalog_g.bind("dcat", DCAT)
-catalog_g.bind("dcat3", DCAT3)
 catalog_g.bind("dcatapit", DCATAPIT)
 catalog_g.bind("dct", DCT)
 catalog_g.bind("adms", ADMS)
@@ -106,7 +104,7 @@ dataset_ids = [
 # Add each dataset as a proper DCAT Dataset resource
 for dataset_id in dataset_ids:
     dataset_uri = OLD[dataset_id] 
-    catalog_g.add((catalog_uri, DCAT3.dataset, dataset_uri))
+    catalog_g.add((catalog_uri, DCAT.dataset, dataset_uri))
     catalog_g.add((dataset_uri, RDF.type, DCAT.Dataset))
     catalog_g.add((dataset_uri, DCT.identifier, Literal(dataset_id)))
     

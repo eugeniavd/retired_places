@@ -3,8 +3,7 @@ from rdflib.namespace import RDF, RDFS, XSD, DCTERMS as DCT, PROV, FOAF
 import os
 
 # Namespaces
-DCAT = Namespace("http://www.w3.org/ns/dcat#")
-DCAT3 = Namespace("http://www.w3.org/ns/dcat3#")
+DCAT = Namespace("http://www.w3.org/ns/dcat3#")
 DCATAPIT = Namespace("http://dati.gov.it/onto/dcatapit/")
 ADMS = Namespace("http://www.w3.org/ns/adms#")
 CC = Namespace("http://creativecommons.org/ns#")
@@ -19,7 +18,6 @@ g = Graph()
 
 # Prefixes
 g.bind("dcat", DCAT)
-g.bind("dcat3", DCAT3)
 g.bind("dcatapit", DCATAPIT)
 g.bind("dct", DCT)
 g.bind("adms", ADMS)
@@ -33,157 +31,165 @@ g.bind("prov", PROV)
 # Data: List of dataset dictionaries
 datasets_list = [
     {
-        # D1 – Italy Population 2025
-        "id": "D1_population_regions",
-        "uri": OLD["D1_population_regions"],
+    # D1 – Italy Population 2025
+    "id": "D1_population_regions",
+    "uri": OLD["D1_population_regions"],
 
-        "title": "D1 – Italy Population 2025",
-        "description": (
-            "Resident population by age, sex and marital status on January 1st. "
-            "It is a process that, starting from Population Census data, calculates "
-            "the municipal resident population by sex, year of birth and marital "
-            "status as of December 31 of each year and is released as of January 1 "
-            "of the following year. Resident population consists of the people "
-            "having habitual residence in the national territory even if temporarily "
-            "absent, both Italian and foreign citizenship."
-        ),
+    "title": "D1 – Italy Population 2025",
+    "description": (
+        "Resident population by age, sex and marital status on January 1st. "
+        "It is a process that, starting from Population Census data, calculates "
+        "the municipal resident population by sex, year of birth and marital "
+        "status as of December 31 of each year and is released as of January 1 "
+        "of the following year. Resident population consists of the people "
+        "having habitual residence in the national territory even if temporarily "
+        "absent, both Italian and foreign citizenship."
+    ),
 
-        "publisher_uri": "https://www.istat.it/",
-        "publisher_name": "Istituto nazionale di statistica (ISTAT)",
-        "creator_uri": "https://www.istat.it/",
-        "creator_name": "Italian National Institute of Statistics",
+    "publisher_uri": "https://www.istat.it/",
+    "publisher_name": "Istituto nazionale di statistica (ISTAT)",
+    "creator_uri": "https://www.istat.it/",
+    "creator_name": "Italian National Institute of Statistics",
 
-        "language": "it",
-        "production_year": "2025",
+    "data_language": "it",       
+    "metadata_language": "en",     
+    "keywords_language": "it",    
 
-        "spatial_coverage_uri": "https://viaf.org/viaf/152361066",
+    "production_year": "2025",
 
-        "distribution": [
-            {
-                "access_url": (
-                    "https://github.com/eugeniavd/retired_places/blob/main/"
-                    "data/raw/D1_population_regions.csv"
-                ),
-                "media_type": "text/csv",
-                "format": "CSV",
-                "access_rights_uri": (
-                    "http://publications.europa.eu/resource/authority/access-right/PUBLIC"
-                ),
-            }
-        ],
+    "spatial_coverage_uri": "https://viaf.org/viaf/152361066",
 
-        "source_url": "https://demo.istat.it/app/?i=POS&l=it",
+    "distribution": [
+        {
+            "access_url": (
+                "https://github.com/eugeniavd/retired_places/blob/main/"
+                "data/raw/D1_population_regions.csv"
+            ),
+            "media_type": "text/csv",
+            "format": "CSV",
+            "access_rights_uri": (
+                "http://publications.europa.eu/resource/authority/access-right/PUBLIC"
+            ),
+        }
+    ],
 
-        "license_uri": "https://creativecommons.org/licenses/by/4.0/",
-        "keywords": ["regione", "età", "popolazione"],
+    "source_url": "https://demo.istat.it/app/?i=POS&l=it",
 
-        "theme": {
-            "uri": "http://publications.europa.eu/resource/authority/data-theme/SOCI",
-            "label": "Population and society",
-        },
+    "license_uri": "https://creativecommons.org/licenses/by/4.0/",
+    "keywords": ["regione", "età", "popolazione"],
+
+    "theme": {
+        "uri": "http://publications.europa.eu/resource/authority/data-theme/SOCI",
+        "label": "Population and society",
     },
+},
 
     {
-        # D2 – Italy Housing Data 2021
-        "id": "D2_housing_it",
-        "uri": OLD["D2_housing_it"],
+    # D2 – Italy Housing Data 2021
+    "id": "D2_housing_it",
+    "uri": OLD["D2_housing_it"],
 
-        "title": "D2 – Italy Housing Data 2021",
-        "description": (
-            "Housing census data on dwellings and occupied housing units in Italy. "
-            "The dataset provides information on the stock of dwellings by type, "
-            "occupancy status and other housing characteristics at territorial level."
-        ),
+    "title": "D2 – Italy Housing Data 2021",
+    "description": (
+        "Housing census data on dwellings and occupied housing units in Italy. "
+        "The dataset provides information on the stock of dwellings by type, "
+        "occupancy status and other housing characteristics at territorial level."
+    ),
 
-        "publisher_uri": "https://www.istat.it/",
-        "publisher_name": "Istituto nazionale di statistica (ISTAT)",
-        "creator_uri": "https://www.istat.it/",
-        "creator_name": "Italian National Institute of Statistics",
+    "publisher_uri": "https://www.istat.it/",
+    "publisher_name": "Istituto nazionale di statistica (ISTAT)",
+    "creator_uri": "https://www.istat.it/",
+    "creator_name": "Italian National Institute of Statistics",
 
-        "language": "it",
-        "production_year": "2021",
+    "data_language": "it",
+    "metadata_language": "en",
+    "keywords_language": "it",
 
-        "spatial_coverage_uri": "https://viaf.org/viaf/152361066",
+    "production_year": "2021",
 
-        "distribution": [
-            
-            {
+    "spatial_coverage_uri": "https://viaf.org/viaf/152361066",
 
-                "access_url": (
-                    "https://github.com/eugeniavd/retired_places/blob/main/"
-                    "data/raw/D2_housing_it.xlsx"
-                ),
-                "media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                "format": "XLSX",
-                "access_rights_uri": (
-                    "http://publications.europa.eu/resource/authority/access-right/PUBLIC"
-                ),
-            },
-        ],
-
-        "source_url": (
-            "https://esploradati.istat.it/databrowser/#/it/censpop/"
-            "categories/DCSS_ABITAZIONI_TV/IT1,DF_DCSS_ABITAZIONI_TV_1,1.0"
-        ),
-
-        "license_uri": "https://creativecommons.org/licenses/by/4.0/",
-        "keywords": ["abitazioni", "censimento", "alloggi"],
-
-        "theme": {
-            "uri": "http://publications.europa.eu/resource/authority/data-theme/REGI",
-            "label": "Regions and cities",
+    "distribution": [
+        {
+            "access_url": (
+                "https://github.com/eugeniavd/retired_places/blob/main/"
+                "data/raw/D2_housing_it.xlsx"
+            ),
+            "media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "format": "XLSX",
+            "access_rights_uri": (
+                "http://publications.europa.eu/resource/authority/access-right/PUBLIC"
+            ),
         },
+    ],
+
+    "source_url": (
+        "https://esploradati.istat.it/databrowser/#/it/censpop/"
+        "categories/DCSS_ABITAZIONI_TV/IT1,DF_DCSS_ABITAZIONI_TV_1,1.0"
+    ),
+
+    "license_uri": "https://creativecommons.org/licenses/by/4.0/",
+    "keywords": ["abitazioni", "censimento", "alloggi"],
+
+    "theme": {
+        "uri": "http://publications.europa.eu/resource/authority/data-theme/REGI",
+        "label": "Regions and cities",
     },
+},
+ 
 
     {
-        # GD1 – Italy Regions Boundaries
-        "id": "GD1_regions_it",
-        "uri": OLD["GD1_regions_it"],
+    # GD1 – Italy Regions Boundaries
+    "id": "GD1_regions_it",
+    "uri": OLD["GD1_regions_it"],
 
-        "title": "GD1 – Italy Regions Boundaries",
-        "description": (
-            "Geospatial dataset of Italian administrative regions (NUTS 2 level) "
-            "used for statistical purposes. The dataset provides polygon geometries "
-            "for regional boundaries in 2025."
-        ),
+    "title": "GD1 – Italy Regions Boundaries",
+    "description": (
+        "Geospatial dataset of Italian administrative regions (NUTS 2 level) "
+        "used for statistical purposes. The dataset provides polygon geometries "
+        "for regional boundaries in 2025."
+    ),
 
-        "publisher_uri": "https://www.istat.it/",
-        "publisher_name": "Istituto nazionale di statistica (ISTAT)",
-        "creator_uri": "https://www.istat.it/",
-        "creator_name": "Italian National Institute of Statistics",
+    "publisher_uri": "https://www.istat.it/",
+    "publisher_name": "Istituto nazionale di statistica (ISTAT)",
+    "creator_uri": "https://www.istat.it/",
+    "creator_name": "Italian National Institute of Statistics",
 
-        "language": "it",
-        "production_year": "2025",
+    "data_language": "it",
+    "metadata_language": "en",
+    "keywords_language": "it",
 
-        "spatial_coverage_uri": "https://viaf.org/viaf/152361066",
+    "production_year": "2025",
 
-        "distribution": [
-            {
-                "access_url": (
-                    "https://github.com/eugeniavd/retired_places/tree/main/"
-                    "data/raw/GD1_regions_it"
-                ),
-                "media_type": "application/x-shapefile",
-                "format": "SHP",
-                "access_rights_uri": (
-                    "http://publications.europa.eu/resource/authority/access-right/PUBLIC"
-                ),
-            }
-        ],
+    "spatial_coverage_uri": "https://viaf.org/viaf/152361066",
 
-        "source_url": (
-            "https://www.istat.it/notizia/"
-            "confini-delle-unita-amministrative-a-fini-statistici-al-1-gennaio-2018-2/"
-        ),
+    "distribution": [
+        {
+            "access_url": (
+                "https://github.com/eugeniavd/retired_places/tree/main/"
+                "data/raw/GD1_regions_it"
+            ),
+            "media_type": "application/x-shapefile",
+            "format": "SHP",
+            "access_rights_uri": (
+                "http://publications.europa.eu/resource/authority/access-right/PUBLIC"
+            ),
+        }
+    ],
 
-        "license_uri": "https://creativecommons.org/licenses/by/4.0/",
-        "keywords": ["confini", "regioni", "geometrie"],
+    "source_url": (
+        "https://www.istat.it/notizia/"
+        "confini-delle-unita-amministrative-a-fini-statistici-al-1-gennaio-2018-2/"
+    ),
 
-        "theme": {
-            "uri": "http://publications.europa.eu/resource/authority/data-theme/REGI",
-            "label": "Regions and cities",
-        },
+    "license_uri": "https://creativecommons.org/licenses/by/4.0/",
+    "keywords": ["confini", "regioni", "geometrie"],
+
+    "theme": {
+        "uri": "http://publications.europa.eu/resource/authority/data-theme/REGI",
+        "label": "Regions and cities",
     },
+},
 
     {
         # GD2 – Settlements Location Center
@@ -775,22 +781,33 @@ for data in datasets_list:
 
     # --- Language ---
     content_lang = data.get("language")
+    meta_lang = data.get("metadata_language") or data.get("language")
+    data_lang = data.get("data_language") or meta_lang
+    kw_lang = data.get("keywords_language") or meta_lang
+
 
     # --- Title ---
-    title = data.get("title")
-    if title:
-        if content_lang:
-            g.add((dataset_uri, DCT.title, Literal(title, lang=content_lang)))
-        else:
-            g.add((dataset_uri, DCT.title, Literal(title)))
+    if data.get("title"):
+       if meta_lang:
+           g.add((dataset_uri, DCT.title, Literal(data["title"], lang=meta_lang)))
+       else:
+           g.add((dataset_uri, DCT.title, Literal(data["title"])))
 
     # --- Description ---
-    description = data.get("description")
-    if description:
-        if content_lang:
-            g.add((dataset_uri, DCT.description, Literal(description, lang=content_lang)))
+
+    if data.get("description"):
+        if meta_lang:
+            g.add((dataset_uri, DCT.description, Literal(data["description"], lang=meta_lang)))
         else:
-            g.add((dataset_uri, DCT.description, Literal(description)))
+            g.add((dataset_uri, DCT.description, Literal(data["description"]))) 
+
+# --- dct:language ---
+    if data_lang:
+      g.add(
+          (dataset_uri,
+           DCAT.language,
+           URIRef(f"http://lexvo.org/id/iso639-1/{data_lang}"))
+      )               
 
     # --- Publisher ---
     publisher_uris = data.get("publisher_uri")
@@ -823,7 +840,7 @@ for data in datasets_list:
     if content_lang:
         g.add(
             (dataset_uri,
-             DCT.language,
+             DCAT.language,
              URIRef(f"http://lexvo.org/id/iso639-1/{content_lang}"))
         )
 
@@ -831,7 +848,7 @@ for data in datasets_list:
     if data.get("production_year"):
         g.add(
             (dataset_uri,
-             DCT.issued,
+             DCAT.issued,
              Literal(data["production_year"], datatype=XSD_NS.gYear))
         )
 
@@ -905,11 +922,11 @@ for data in datasets_list:
 
     # --- Keywords ---
     if "keywords" in data:
-        for keyword in data["keywords"]:
-            if content_lang:
-                g.add((dataset_uri, DCAT.keyword, Literal(keyword, lang=content_lang)))
-            else:
-                g.add((dataset_uri, DCAT.keyword, Literal(keyword)))
+      for kw in data["keywords"]:
+        if kw_lang:
+            g.add((dataset_uri, DCAT.keyword, Literal(kw, lang=kw_lang)))
+        else:
+            g.add((dataset_uri, DCAT.keyword, Literal(kw)))            
 
     # --- Theme ---
     if data.get("theme"):

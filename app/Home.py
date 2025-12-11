@@ -2534,7 +2534,6 @@ the datasets easier to discover, link and reuse.
 - `dct:source` – link to the original source page  
 - `dct:license` – dataset license (CC BY 4.0 or ODbL 1.0)  
 - `dct:accessRights` – access conditions when relevant  
-- `dct:language` – language of labels and descriptions, via Lexvo URIs  
         """,
     },
     {
@@ -2684,10 +2683,10 @@ Examples:
             """
         )
 
-        st.markdown("#### 2. Language information (`dct:language`)")
+        st.markdown("#### 2. Language information (`dcat:language`)")
         st.markdown(
             """
-Dataset titles and descriptions are annotated with `dct:language` using **Lexvo URIs**, e.g.:
+Dataset titles and descriptions are annotated with `dcat:language` using **Lexvo URIs**, e.g.:
 
 - <http://lexvo.org/id/iso639-1/it> for Italian  
 - <http://lexvo.org/id/iso639-1/en> for English  

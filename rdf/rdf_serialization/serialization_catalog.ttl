@@ -1,7 +1,6 @@
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix cc: <http://creativecommons.org/ns#> .
-@prefix dcat: <http://www.w3.org/ns/dcat#> .
-@prefix dcat3: <http://www.w3.org/ns/dcat3#> .
+@prefix dcat1: <http://www.w3.org/ns/dcat3#> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix old: <https://github.com/eugeniavd/retired_places/> .
@@ -10,7 +9,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<https://github.com/eugeniavd/retired_places/tree/main/data/> a dcat:Catalog ;
+<https://github.com/eugeniavd/retired_places/tree/main/data/> a dcat1:Catalog ;
     dct:conformsTo <https://www.w3.org/TR/vocab-dcat-3/> ;
     dct:description "Catalog containing the source, merged and mashup datasets for the Retired Places project."@en ;
     dct:issued "2025-11-13"^^xsd:date ;
@@ -19,10 +18,7 @@
     dct:publisher old: ;
     dct:title "Retired Places Datasets Catalog"@en ;
     adms:identifier "OLD_catalog"^^xsd:string ;
-    dcat:language <http://www.lexvo.org/page/iso639-3/eng>,
-        <http://www.lexvo.org/page/iso639-3/ita> ;
-    dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme> ;
-    dcat3:dataset old:D1_population_regions,
+    dcat1:dataset old:D1_population_regions,
         old:D2_housing_it,
         old:GD1_regions_it,
         old:GD2_places_center,
@@ -36,52 +32,55 @@
         old:MD4_dispertion_places,
         old:MD5_age_houses_occupation,
         old:MED1_settlements_italy ;
+    dcat1:language <http://www.lexvo.org/page/iso639-3/eng>,
+        <http://www.lexvo.org/page/iso639-3/ita> ;
+    dcat1:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme> ;
     prov:wasAttributedTo old: .
 
 <http://publications.europa.eu/resource/authority/data-theme> a skos:ConceptScheme ;
     dct:description "Controlled vocabulary of data themes used for dataset classification in DCAT-AP."@en ;
     dct:title "Publications Office of the European Union Data Themes"@en .
 
-old:D1_population_regions a dcat:Dataset ;
+old:D1_population_regions a dcat1:Dataset ;
     dct:identifier "D1_population_regions" .
 
-old:D2_housing_it a dcat:Dataset ;
+old:D2_housing_it a dcat1:Dataset ;
     dct:identifier "D2_housing_it" .
 
-old:GD1_regions_it a dcat:Dataset ;
+old:GD1_regions_it a dcat1:Dataset ;
     dct:identifier "GD1_regions_it" .
 
-old:GD2_places_center a dcat:Dataset ;
+old:GD2_places_center a dcat1:Dataset ;
     dct:identifier "GD2_places_center" .
 
-old:GD3_places_islands a dcat:Dataset ;
+old:GD3_places_islands a dcat1:Dataset ;
     dct:identifier "GD3_places_islands" .
 
-old:GD4_places_north_east a dcat:Dataset ;
+old:GD4_places_north_east a dcat1:Dataset ;
     dct:identifier "GD4_places_north_east" .
 
-old:GD5_places_north_west a dcat:Dataset ;
+old:GD5_places_north_west a dcat1:Dataset ;
     dct:identifier "GD5_places_north_west" .
 
-old:GD6_places_south a dcat:Dataset ;
+old:GD6_places_south a dcat1:Dataset ;
     dct:identifier "GD6_places_south" .
 
-old:MD1_share_houses_occupation a dcat:Dataset ;
+old:MD1_share_houses_occupation a dcat1:Dataset ;
     dct:identifier "MD1_share_houses_occupation" .
 
-old:MD2_share_65_plus a dcat:Dataset ;
+old:MD2_share_65_plus a dcat1:Dataset ;
     dct:identifier "MD2_share_65_plus" .
 
-old:MD3_settlements_count a dcat:Dataset ;
+old:MD3_settlements_count a dcat1:Dataset ;
     dct:identifier "MD3_settlements_count" .
 
-old:MD4_dispertion_places a dcat:Dataset ;
+old:MD4_dispertion_places a dcat1:Dataset ;
     dct:identifier "MD4_dispertion_places" .
 
-old:MD5_age_houses_occupation a dcat:Dataset ;
+old:MD5_age_houses_occupation a dcat1:Dataset ;
     dct:identifier "MD5_age_houses_occupation" .
 
-old:MED1_settlements_italy a dcat:Dataset ;
+old:MED1_settlements_italy a dcat1:Dataset ;
     dct:identifier "MED1_settlements_italy" .
 
 <https://creativecommons.org/publicdomain/zero/1.0/> a cc:License ;
