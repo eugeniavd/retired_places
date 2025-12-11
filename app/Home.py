@@ -1273,13 +1273,16 @@ TECH_TEXTS = {
 ##### Metadata Quality (AgID model)
 
 - **Syntactic quality – High**  
-  MD1 is stored as a machine-readable CSV with a small number of fields (e.g. `region_code`, `region_name`, `total_dwellings`, `unoccupied_dwellings`, `share_unoccupied`). Column types are simple and consistently generated via scripts, which reduces the risk of ad-hoc errors.
+  MD1 is stored as a machine-readable CSV with a small number of fields (e.g. `region_code`, `region_name`, `total_dwellings`, `unoccupied_dwellings`, `share_unoccupied`). 
+  Column types are simple and consistently generated via scripts, which reduces the risk of ad-hoc errors.
 
 - **Semantic quality – High**  
-  The indicator definition (“share of unoccupied dwellings” = `unoccupied / total`) is transparent and directly traceable to ISTAT’s official housing counts. Territorial identifiers reuse ISTAT regional codes and names, maintaining semantic alignment with the source.
+  The indicator definition (“share of unoccupied dwellings” = `unoccupied / total`) is transparent and directly traceable to ISTAT’s official housing counts. Territorial 
+  identifiers reuse ISTAT regional codes and names, maintaining semantic alignment with the source.
 
 - **Completeness – High**  
-  All 20 Italian regions are included, and the minimal set of variables needed to interpret the indicator (absolute values + share) is present. There are no structural missing values at regional level.
+  All 20 Italian regions are included, and the minimal set of variables needed to interpret the indicator (absolute values + share) is present. There are no structural 
+  missing values at regional level.
 
 - **Consistency – High**  
   MD1 is derived by a single, documented transformation from D2. The same code is applied uniformly to all 
@@ -1288,7 +1291,8 @@ TECH_TEXTS = {
 ##### FAIR principles
 
 - **Findable – Medium**  
-  Within the project, MD1 is clearly named, versioned, and referenced in notebooks and documentation. However, it is not (yet) registered in a national DCAT or institutional catalogue, so its findability is limited to the project repository.
+  Within the project, MD1 is clearly named, versioned, and referenced in notebooks and documentation. However, it is not (yet) registered in a national DCAT or 
+  institutional catalogue, so its findability is limited to the project repository.
 
 - **Accessible – High**  
   MD1 is provided as an open CSV in the project repo, retrievable via standard HTTP/HTTPS and usable without any proprietary software.
@@ -1308,21 +1312,25 @@ TECH_TEXTS = {
 ##### Metadata Quality (AgID model)
 
 - **Syntactic quality – High**  
-  MD2 follows the same simple, regular CSV structure (`region_code`, `region_name`, `population_65plus`, `total_population`, `share_65plus`). Data types are numeric and consistently generated.
+  MD2 follows the same simple, regular CSV structure (`region_code`, `region_name`, `population_65plus`, `total_population`, `share_65plus`). Data types are numeric and 
+  consistently generated.
 
 - **Semantic quality – High**  
-  The definition of “65+” and “total population” is inherited from ISTAT demographic statistics. The resulting share is semantically clear and unambiguous, and territorial units are aligned with official regional classifications.
+  The definition of “65+” and “total population” is inherited from ISTAT demographic statistics. The resulting share is semantically clear and unambiguous, and 
+  territorial units are aligned with official regional classifications.
 
 - **Completeness – High**  
   All regions are present, and the dataset contains both absolute counts and relative shares, enabling multiple forms of analysis without additional inputs.
 
 - **Consistency – High**  
-  MD2 is produced via a uniform aggregation and division procedure from D1; identical territorial codes are used across MD1, MD2, MD5, which preserves cross-dataset consistency.
+  MD2 is produced via a uniform aggregation and division procedure from D1; identical territorial codes are used across MD1, MD2, MD5, which preserves cross-dataset 
+  consistency.
 
 ##### FAIR principles
 
 - **Findable – Medium**  
-  As with MD1, MD2 is well referenced inside the project (filenames, notebooks, plots) but is not yet indexed in external catalogues. It is “locally” findable rather than globally.
+  As with MD1, MD2 is well referenced inside the project (filenames, notebooks, plots) but is not yet indexed in external catalogues. It is “locally” findable rather 
+  than globally.
 
 - **Accessible – High**  
   Distributed as CSV under open access in the repository; no technical barriers prevent reuse.
@@ -1331,7 +1339,8 @@ TECH_TEXTS = {
   Regional codes and the minimal, well-named column schema support easy integration with other regional indicators and GIS layers.
 
 - **Reusable – High**  
-  Documentation of the aggregation level (region), reference year, and derivation from ISTAT D1 makes the indicator reusable in other comparative studies of ageing, provided the project’s open license (e.g. CC BY 4.0) is applied.
+  Documentation of the aggregation level (region), reference year, and derivation from ISTAT D1 makes the indicator reusable in other comparative studies of 
+  ageing, provided the project’s open license (e.g. CC BY 4.0) is applied.
 """,
     # ---------- MD3 ----------
     "md3": """
@@ -1340,16 +1349,20 @@ TECH_TEXTS = {
 ##### Metadata Quality (AgID model)
 
 - **Syntactic quality – High**  
-  MD3 collapses complex OSM point data into regional (or macro-regional) counts by settlement type (e.g. cities, towns, villages, hamlets, localities). The resulting CSV has a regular structure with one row per territory and numerically typed count columns.
+  MD3 collapses complex OSM point data into regional (or macro-regional) counts by settlement type (e.g. villages, hamlets, localities). The resulting CSV has a 
+  regular structure with one row per territory and numerically typed count columns.
 
 - **Semantic quality – Medium/High**  
-  The semantics of “city”, “town”, “village” etc. follow OpenStreetMap tagging rather than ISTAT classifications. The methodology explicitly states that these are OSM settlement classes, not official administrative categories. Within that framing, the indicators are meaningful, but they are not directly equivalent to official *comune* or *località* typologies.
+  The semantics of “city”, “town”, “village” etc. follow OpenStreetMap tagging rather than ISTAT classifications. The methodology explicitly states that these are 
+  OSM settlement classes, not official administrative categories. Within that framing, the indicators are meaningful, but they are not directly equivalent to 
+  official *comune* or *località* typologies.
 
 - **Completeness – Medium**  
-  At the regional aggregation level, MD3 includes counts for all regions, but completeness is limited by underlying OSM coverage (under-mapping in some rural areas). This is explicitly acknowledged in the documentation.
+  At the regional aggregation level, MD3 includes counts for all regions, but completeness is limited by underlying OSM coverage (under-mapping in some rural areas). 
 
 - **Consistency – High (within project scope)**  
-  The same extraction pipelines and filters are applied to all OSM tiles, and then the same aggregation logic is used for all regions. This yields internally consistent indicators, even if OSM source completeness varies geographically.
+  The same extraction pipelines and filters are applied to all OSM tiles, and then the same aggregation logic is used for all regions. This yields internally 
+  consistent indicators, even if OSM source completeness varies geographically.
 
 ##### FAIR principles
 
@@ -1359,11 +1372,13 @@ TECH_TEXTS = {
 - **Accessible – High**  
   Provided as CSV in the repo, readable with standard tools.
 
-- **Interoperable – Medium/High**  
-  Technically, interoperability is good (WGS84-based joins to regions and standard CSV). Semantically, interoperability is constrained by the need to understand OSM tagging conventions; crosswalks to official categories are not 1:1.
+- **Interoperable – Medium**  
+  Technically, interoperability is good (WGS84-based joins to regions and standard CSV). Semantically, interoperability is constrained by the need to understand 
+  OSM tagging conventions; crosswalks to official categories are not 1:1.
 
-- **Reusable – Medium/High**  
-  Reuse is facilitated by clear attribution to “© OpenStreetMap contributors, ODbL 1.0” at the data source level and by documentation of aggregation methods. Because MD3 is a derived database from OSM, publishing it publicly would require an ODbL-compatible license; within that constraint, reuse potential is high.
+- **Reusable – High**  
+  Reuse is facilitated by clear attribution to “© OpenStreetMap contributors, ODbL 1.0” at the data source level and by documentation of aggregation methods. 
+  Because MD3 is a derived database from OSM, publishing it publicly would require an ODbL-compatible license; within that constraint, reuse potential is high.
 """,
     # ---------- MD4 ----------
     "md4": """
@@ -1372,16 +1387,19 @@ TECH_TEXTS = {
 ##### Metadata Quality (AgID model)
 
 - **Syntactic quality – High**  
-  MD4 encodes indicators such as average distance between settlements, density of places per area, or proxies for spatial dispersion, again as a tidy CSV at regional level. Numeric formats are coherent, and there is a clear one-row-per-region structure.
+  MD4 encodes indicators such as density of places per area, or proxies for spatial dispersion, again as a tidy CSV at regional level. Numeric formats are 
+  coherent, and there is a clear one-row-per-region structure.
 
 - **Semantic quality – Medium/High**  
-  The indicators represent analytical constructs (e.g. “dispersion index”, “average nearest-neighbour distance”), which are well defined in the notebooks. Provided that formulas and units are documented, the semantics are robust. However, they still inherit the OSM-based limitations of what counts as a “settlement point”.
+  The indicators represent analytical constructs (e.g. “dispersion index”), which are well defined in the notebooks. Provided that formulas and units are 
+  documented, the semantics are robust. However, they still inherit the OSM-based limitations of what counts as a “settlement point”.
 
 - **Completeness – Medium**  
-  All regions possess values, but their robustness depends on OSM coverage (missing or misclassified small settlements = potential bias). MD4 is therefore interpreted as indicative of relative spatial structure, not as an exact settlement inventory.
+  All regions possess values, but their robustness depends on OSM coverage (missing or misclassified small settlements = potential bias). MD4 is therefore interpreted 
+  as indicative of relative spatial structure, not as an exact settlement inventory.
 
 - **Consistency – High**  
-  The same geospatial pipeline and statistics (e.g. nearest-neighbour calculations, counts within region polygons) are used for all regions, ensuring methodological consistency.
+  The same geospatial pipeline and statistics are used for all regions, ensuring methodological consistency.
 
 ##### FAIR principles
 
@@ -1391,11 +1409,13 @@ TECH_TEXTS = {
 - **Accessible – High**  
   Openly accessible CSV via the repository.
 
-- **Interoperable – Medium/High**  
-  Outputs are numeric indicators with ISTAT regional codes, which makes them easy to merge. Interpreting them correctly, however, requires access to methodological notes (e.g. how distances were computed, which settlement classes were included).
+- **Interoperable – Medium**  
+  Outputs are numeric indicators with ISTAT regional codes, which makes them easy to merge. Interpreting them correctly, however, requires access to methodological 
+  notes (e.g. which settlement classes were included).
 
-- **Reusable – Medium/High**  
-  Reuse is feasible for others who wants a proxy for settlement dispersion. Licensing follows the same pattern as MD3 (ODbL-compatible if shared as a database), which is a legal — not technical — constraint.
+- **Reusable – High**  
+  Reuse is feasible for others who wants a proxy for settlement dispersion. Licensing follows the same pattern as MD3 (ODbL-compatible if shared as a database), 
+  which is a legal — not technical — constraint.
 """,
     # ---------- MD5 ----------
     "md5": """
@@ -1404,30 +1424,37 @@ TECH_TEXTS = {
 ##### Metadata Quality (AgID model)
 
 - **Syntactic quality – High**  
-  MD5 brings together core indicators from MD1 and MD2 (and possibly other variables) into a single regional-level dataset. Column names and types are regular, and the table is fully machine-readable.
+  MD5 brings together core indicators from MD1 and MD2 (and possibly other variables) into a single regional-level dataset. Column names and types are regular, 
+  and the table is fully machine-readable.
 
 - **Semantic quality – High**  
-  Each variable is either a direct reproduction (e.g. `share_65plus`, `share_unoccupied`) or a transparent derivative (e.g. typology categories such as “high ageing / high vacancy”). When typologies or clusters are used, their thresholds and logic are documented, which preserves semantic clarity.
+  Each variable is either a direct reproduction (e.g. `share_65plus`, `share_unoccupied`) or a transparent derivative (e.g. typology categories such as 
+  “high ageing / high vacancy”). When typologies or clusters are used, their thresholds and logic are documented, which preserves semantic clarity.
 
 - **Completeness – High**  
   All Italian regions have complete rows for the included indicators. The dataset is explicitly positioned as a “master table” for the project’s regional analysis.
 
 - **Consistency – High**  
-  MD5 provides a consistent key (`region_code`) that matches D1–D3, and all included indicators are generated from earlier, checked datasets (MD1–MD4), which greatly reduces the risk of inconsistencies across indicators.
+  MD5 provides a consistent key (`region_code`) that matches D1–D3, and all included indicators are generated from earlier, checked datasets (MD1–MD4), 
+  which greatly reduces the risk of inconsistencies across indicators.
 
 ##### FAIR principles
 
-- **Findable – Medium/High**  
-  Within the project, MD5 is the central analytical dataset and is referenced in figures, notebooks, and the report. As such, it is easy to locate inside the repository. If you later register the project’s outputs in an institutional or thematic catalogue, MD5 would be the logical candidate for a FAIR-compliant “published dataset”.
+- **Findable – Medium**  
+  Within the project, MD5 is the central analytical dataset and is referenced in figures, notebooks, and the report. As such, it is easy to locate inside the 
+  repository. 
 
 - **Accessible – High**  
   Distributed as a tidy CSV (and possibly GeoPackage when joined with D3) via open protocols, with no access barriers.
 
 - **Interoperable – High**  
-  MD5 uses standard regional codes and clearly defined indicators, making it straightforward to interoperate with other regional datasets (e.g. climate indicators, socio-economic statistics). If you also supply a data dictionary, semantic interoperability will be very strong.
+  MD5 uses standard regional codes and clearly defined indicators, making it straightforward to interoperate with other regional datasets 
+  (e.g. climate indicators, socio-economic statistics). 
 
 - **Reusable – High**  
-  MD5 concentrates the most policy-relevant indicators (ageing, housing vacancy, settlement structure proxies) into one place with clear provenance. Under an open license (e.g. CC BY 4.0 for the ISTAT-derived parts, plus proper acknowledgement of any OSM-derived components), it provides a high-value, reusable resource for researchers, journalists, and public authorities interested in “retired people / retired places” typologies.
+  MD5 concentrates the most policy-relevant indicators (ageing, housing vacancy, settlement structure proxies) into one place with clear provenance. 
+  Under an open license (e.g. CC BY 4.0 for the ISTAT-derived parts, plus proper acknowledgement of any OSM-derived components), it provides a high-value, 
+  reusable resource for researchers, journalists, and public authorities interested in “retired people / retired places” typologies.
 """,
 }
 

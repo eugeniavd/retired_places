@@ -65,7 +65,7 @@ catalog_g.add((theme_taxonomy_uri, DCT.description, Literal(
     lang="en"
 )))
 
-# Conformance to DCAT 3
+# Conformance to DCAT 
 dcat_ap_uri = URIRef("https://www.w3.org/TR/vocab-dcat-3/")
 catalog_g.add((catalog_uri, DCT.conformsTo, dcat_ap_uri))
 
