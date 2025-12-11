@@ -2416,7 +2416,7 @@ with tab_assert:
 
     st.markdown(
     """
-All source and project-generated datasets used in the *Retired Places* project — including the original ISTAT tables, the geospatial layers from OpenStreetMap, and the derived mashup and merged datasets — are described in RDF using the **[W3C Data Catalog Vocabulary (DCAT), Version 3 (2024)](https://www.w3.org/TR/vocab-dcat-3/)**.
+All source and project-generated datasets used in the *Retired Places* project — including the original ISTAT tables, the geospatial layers from OpenStreetMap, and the derived mashup and merged datasets — are described in RDF using the **[W3C Data Catalog Vocabulary (DCAT), Version 3.0.1 (2025)](https://semiceu.github.io/DCAT-AP/releases/3.0.1/)**.
 
 The catalog metadata itself is published under **[CC0](https://creativecommons.org/public-domain/cc0/)**, while each dataset keeps the license inherited from its original source or, in the case of mashups, from the most restrictive input dataset used in its creation.
 """
@@ -2478,7 +2478,7 @@ The catalog metadata itself is published under **[CC0](https://creativecommons.o
     st.markdown(
     """
 The catalog is modeled as a `dcat:Catalog` and is explicitly declared as conforming to
-**[DCAT v3](https://www.w3.org/TR/vocab-dcat-3/)** via `dct:conformsTo`. Each dataset is represented as a `dcat:Dataset` and linked from the catalog via `dcat:dataset`.
+**[DCAT v3.0.1](https://semiceu.github.io/DCAT-AP/releases/3.0.1/)** via `dct:conformsTo`. Each dataset is represented as a `dcat:Dataset` and linked from the catalog via `dcat:dataset`.
 """
 )
     col_catalog, col_dataset = st.columns(2)
@@ -2533,10 +2533,10 @@ the datasets easier to discover, link and reuse.
     ontology_items = [
     {
         "id": "dcat",
-        "name": "DCAT (v3)",
+        "name": "DCAT",
         "subtitle": "Core vocabulary for catalog and dataset description",
         "details": """
-**DCAT (v3)** is used as the core vocabulary for catalog and dataset description:
+**DCAT** is used as the core vocabulary for catalog and dataset description:
 
 - `dcat:Catalog` – the Retired Places catalog  
 - `dcat:Dataset` – individual source, mashup and merged datasets  
